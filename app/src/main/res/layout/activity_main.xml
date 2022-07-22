@@ -1,38 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/swipeLayout"
     tools:context=".MainActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <LinearLayout
-        android:layout_marginTop="200sp"
-        android:layout_marginLeft="10sp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-
-
-        <EditText
-            android:id="@+id/input_phone_num"
-            android:layout_width="250sp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/remove"
-            android:text="삭 제"
-            android:layout_marginLeft="10sp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/printCall"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:id="@+id/input_phone_num"
+                android:layout_width="250sp"
+                android:hint="전화번호를 입력하세요"
+                android:inputType="number"
+
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/remove"
+                android:layout_marginLeft="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="삭 제"
+                android:textStyle="bold" />
+        </LinearLayout>
+
 
 
         <Button
@@ -42,6 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/button_round"
             android:text="동의서 전송"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/input_phone_num"
@@ -50,4 +60,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
