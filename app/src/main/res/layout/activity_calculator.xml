@@ -33,42 +33,114 @@
             android:layout_width="300dp"
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
-            android:gravity="center"
             android:background="@color/gray"
+            android:gravity="center"
             android:text="20,000원"
             android:textAlignment="center"
             android:textSize="30dp" />
 
         <LinearLayout
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:background="@color/material_dynamic_neutral40"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/material_dynamic_neutral40"
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/small"
-                android:text="소형"
-                android:layout_margin="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="소형" />
+
             <Button
                 android:id="@+id/medium"
-                android:text="중형"
-                android:layout_margin="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="중형" />
+
             <Button
                 android:id="@+id/large"
-                android:text="대형"
-                android:layout_margin="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="대형" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:text="몸무게"/>
+
+            <NumberPicker
+
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"/>
+
+
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:textStyle="bold"
+                android:text="픽업"
+                android:textSize="40dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+
+                android:textStyle="bold"
+                android:text="드랍"
+                android:textSize="40dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/checkBox3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                android:text="미용" />
+        </LinearLayout>
 
     </LinearLayout>
-
-
 
 
     <LinearLayout
