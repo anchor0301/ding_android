@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 finish();	//현재 액티비티 종료
             }
-        }, 200); // sec초 정도 딜레이를 준 후 시작
+        }, 1000); // sec초 정도 딜레이를 준 후 시작
     }
 
 }
