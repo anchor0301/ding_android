@@ -11,7 +11,6 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-
 //전화 중이면 전화를 받고 아니면 메세지
 public class CallReceiver extends BroadcastReceiver {//현재 전화가 오는지 받는지 끊는지 기본인지
 

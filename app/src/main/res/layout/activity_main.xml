@@ -8,55 +8,88 @@
     android:id="@+id/swipeLayout"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center">
 
-        <TextView
-            android:id="@+id/printCall"
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@color/pink">
+
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:src="@drawable/dog2"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/border_down"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="직접 입력"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:textSize="20dp"
+            android:inputType="number"/>
+
+        <android.widget.Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginRight="5dp"
+            android:background="@color/pink"
+            android:text="전송"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:onClick="messageSend"/>
+    </LinearLayout>
 
 
-            <EditText
-                android:id="@+id/input_phone_num"
-                android:layout_width="250sp"
-                android:hint="전화번호를 입력하세요"
-                android:inputType="number"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8">
 
-                android:layout_height="wrap_content" />
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-            <Button
-                android:id="@+id/remove"
-                android:layout_marginLeft="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="삭 제"
-                android:textStyle="bold" />
-        </LinearLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/pink">
 
 
         <Button
-
-            android:id="@+id/send_sms_button"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="40dp"
-            android:background="@drawable/button_round"
-            android:text="동의서 전송"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/input_phone_num"
-            app:layout_constraintStart_toStartOf="@+id/input_phone_num"
-            app:layout_constraintTop_toBottomOf="@+id/input_phone_num" />
+            android:text="조회"
+            android:onClick="btnClick"/>
+    </LinearLayout>
+
 
     </LinearLayout>
 
