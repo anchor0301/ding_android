@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 ad.show();
             }
         });
-
+        getCallHistory();
     }
     public void messageSend(View view){//직접 전화번호 작성해서 전송 버튼 클릭시 이벤트
         EditText editText=findViewById(R.id.editText);
@@ -158,14 +158,14 @@ public class MainActivity extends AppCompatActivity {
             makeListAdapter();
 
         }else{//그외
-            c.moveToLast();
+            c.moveToFirst();
             itemList.clear();
 
             for(int i=0;i<3;i++){
                 String timeLog=timeLog(c);
                 String phoneLog=phoneLog(c);
                 addItemList(timeLog,phoneLog);
-                c.moveToPrevious();
+                c.moveToNext();
             }
 
             makeListAdapter();
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
         //시간
         long callDate=c.getLong(0);
-        SimpleDateFormat datePattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat datePattern = new SimpleDateFormat("MM-dd HH:mm:ss");
         String date_str = datePattern.format(new Date(callDate));
         callBuff.append(date_str);
 
