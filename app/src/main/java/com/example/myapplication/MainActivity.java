@@ -8,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         messageImageView=findViewById(R.id.messageImage);
         calculatorImageView=findViewById(R.id.calculatorImage);
 
+        messageImageView.setImageResource(R.drawable.message2);
+
         //리스트뷰 새로고침 시 동작
         mysrl = findViewById(R.id.content_srl);
         mysrl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -98,6 +101,15 @@ public class MainActivity extends AppCompatActivity {
         });
         getCallHistory();
     }
+
+    public void calculatorClick(View view){
+        //계산기 화면으로 전환
+        Intent intent=new Intent(MainActivity.this,CalculatorActivity.class);
+        startActivity(intent);
+        finish();
+        //계산기 화면 만들어서 계산기
+    }
+
     public void messageSend(View view){//직접 전화번호 작성해서 전송 버튼 클릭시 이벤트
         EditText editText=findViewById(R.id.editText);
         String phone=editText.getText().toString();
