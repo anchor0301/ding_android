@@ -20,6 +20,8 @@ public class CalculatorActivity extends AppCompatActivity {
 
         calculatorImageView=findViewById(R.id.calculatorImage);
         calculatorImageView.setImageResource(R.drawable.calculator2);
+
+        getWindow().setWindowAnimations(0);//화면 전환 애니메이션 제거
     }
 
     public void messageClick(View view){
