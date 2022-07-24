@@ -110,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
         //계산기 화면 만들어서 계산기
     }
 
+    public void checkoutClick(View view){
+
+        Intent intent=new Intent(MainActivity.this,CheckoutActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void messageSend(View view){//직접 전화번호 작성해서 전송 버튼 클릭시 이벤트
         EditText editText=findViewById(R.id.editText);
         String phone=editText.getText().toString();

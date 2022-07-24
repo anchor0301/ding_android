@@ -28,4 +28,10 @@ public class CalculatorActivity extends AppCompatActivity {
         finish();
     }
 
+    public void checkoutClick(View view){
+        Intent intent=new Intent(CalculatorActivity.this,CheckoutActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
