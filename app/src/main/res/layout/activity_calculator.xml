@@ -51,76 +51,98 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textStyle="bold"
+                android:text="놀이방"
                 android:textSize="20dp"
-                android:text="소형" />
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textStyle="bold"
+                android:text="호텔링"
                 android:textSize="20dp"
-                android:text="중형" />
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textStyle="bold"
+                android:text="유치원"
                 android:textSize="20dp"
-                android:text="대형" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="142dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:text="크기"
-                android:textSize="30dp"
                 android:textStyle="bold" />
-
-            <NumberPicker
-                android:id="@+id/size"
-                android:layout_width="104dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:text="몸무게"
-                android:textSize="30dp"
-                android:textStyle="bold" />
-
-            <NumberPicker
-                android:id="@+id/numberPicker"
-                android:layout_width="104dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
-
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="몸무게"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <NumberPicker
+                    android:id="@+id/numberPicker"
+                    android:layout_width="104dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="추가 시간"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <NumberPicker
+                    android:id="@+id/numberPickerHour"
+                    android:layout_width="104dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center" />
+
+                <NumberPicker
+                    android:id="@+id/numberPickerHalf"
+                    android:layout_width="104dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -129,30 +151,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textStyle="bold"
                 android:text="픽업"
-                android:textSize="30dp" />
+                android:textSize="30dp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/EditText1"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="추가 거리"/>
 
             <CheckBox
                 android:id="@+id/checkBox2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-
-                android:textStyle="bold"
                 android:text="드랍"
-                android:textSize="30dp" />
+                android:textSize="30dp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/EditText2"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="추가 거리"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
             <CheckBox
+
                 android:id="@+id/checkBox3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:text="목욕"
                 android:textSize="30dp"
-                android:textStyle="bold"
-                android:text="목욕" />
+                android:textStyle="bold" />
 
+            <EditText
+                android:id="@+id/EditText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="15000"
+                android:inputType="number"/>
 
         </LinearLayout>
+    </LinearLayout>
 
 
     </LinearLayout>
