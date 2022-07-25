@@ -74,26 +74,45 @@
                 android:text="대형" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_height="142dp"
             android:layout_marginTop="20dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="15dp"
+                android:text="크기"
                 android:textSize="30dp"
-                android:textStyle="bold"
-                android:text="몸무게"/>
+                android:textStyle="bold" />
 
             <NumberPicker
-
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:id="@+id/size"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="몸무게"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <NumberPicker
+                android:id="@+id/numberPicker"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
 
 
         </LinearLayout>
@@ -109,36 +128,32 @@
                 android:id="@+id/checkBox1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:textStyle="bold"
                 android:text="픽업"
-                android:textSize="40dp" />
+                android:textSize="30dp" />
 
             <CheckBox
                 android:id="@+id/checkBox2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
 
                 android:textStyle="bold"
                 android:text="드랍"
-                android:textSize="40dp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
+                android:textSize="30dp" />
             <CheckBox
                 android:id="@+id/checkBox3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="40dp"
+                android:layout_margin="10dp"
+                android:textSize="30dp"
                 android:textStyle="bold"
-                android:text="미용" />
+                android:text="목욕" />
+
+
         </LinearLayout>
+
 
     </LinearLayout>
 
