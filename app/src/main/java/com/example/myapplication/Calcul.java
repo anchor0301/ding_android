@@ -24,8 +24,6 @@ public class Calcul extends AppCompatActivity {
     NumberPicker numberPickerWeight;
     NumberPicker numberPickerUseHour;
     NumberPicker numberPickerUseHalf;
-    NumberPicker numberPickerHour;
-    NumberPicker numberPickerHalf;
     TextView resultOutput;
     TextView textUseTime;
     CheckBox checkBox1;
@@ -84,8 +82,6 @@ public class Calcul extends AppCompatActivity {
         numberPickerWeight = (NumberPicker) findViewById(R.id.numberPicker);
         numberPickerUseHour = (NumberPicker) findViewById(R.id.numberPickerUseHour);
         numberPickerUseHalf = (NumberPicker) findViewById(R.id.numberPickerUseHalf);
-        numberPickerHour = (NumberPicker) findViewById(R.id.numberPickerHour);
-        numberPickerHalf = (NumberPicker) findViewById(R.id.numberPickerHalf);
         checkBox1 = (CheckBox) findViewById(R.id.checkBox1);
         checkBox2 = (CheckBox) findViewById(R.id.checkBox2);
         checkBox3 = (CheckBox) findViewById(R.id.checkBox3);
@@ -119,7 +115,6 @@ public class Calcul extends AppCompatActivity {
         //이용 분
         numberPickerUseHalf.setMinValue(0);      //몸무게 최소 0
         numberPickerUseHalf.setMaxValue(1);     //몸무게 최대59
-
         numberPickerUseHalf.setWrapSelectorWheel(false); //무한 휠 안됨
         numberPickerUseHalf.setDisplayedValues(new String[]{
                 "0", "30"
@@ -133,24 +128,6 @@ public class Calcul extends AppCompatActivity {
         numberPickerWeight.setWrapSelectorWheel(false); //무한 휠 허용
         numberPickerWeight.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //키보드 입력 방지
 
-        //초과 시간
-        numberPickerHour.setMinValue(0);      //시간 최소 0
-        numberPickerHour.setMaxValue(23);     //시간 최대23
-        numberPickerHour.setValue(0);         //기본 0
-        numberPickerHour.setOnLongPressUpdateInterval(1000);
-        numberPickerHour.setWrapSelectorWheel(false); //무한 휠 허용
-        numberPickerHour.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //키보드 입력 방지
-
-        //초과 분
-        numberPickerHalf.setMinValue(0);      //몸무게 최소 0
-        numberPickerHalf.setMaxValue(1);     //몸무게 최대59
-        numberPickerHalf.setDisplayedValues(new String[]{
-                "0", "30"
-        });
-        numberPickerHalf.setValue(0);         //기본값 0
-        numberPickerHalf.setOnLongPressUpdateInterval(1000);
-        numberPickerHalf.setWrapSelectorWheel(false); //무한 휠 허용
-        numberPickerHalf.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //키보드 입력 방지
 
     }
 
@@ -174,8 +151,6 @@ public class Calcul extends AppCompatActivity {
                 resultOutput.setText("이용 시간을 설정해주세요");
                 numberPickerUseHour.setValue(0);
                 numberPickerUseHalf.setValue(0);
-                numberPickerHour.setValue(0);
-                numberPickerHalf.setValue(0);
                 useTime[0] = 0;
                 useHour[0] = 0;
                 useHalf[0] = 0;
@@ -201,31 +176,6 @@ public class Calcul extends AppCompatActivity {
 
                 useHalf[0] = newVal * weight[0];
                 useTime[0] = (weight[0] * useHour[0] + useHalf[0]);
-
-                NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
-                resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
-
-            }
-        });
-
-        numberPickerHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() { //추가시간
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) { //추가 시간
-                extraHour[0] = (newVal * 2);
-                useTime[0] = (weight[0] * useHour[0] + useHalf[0] + (weight[0] * extraHour[0] + extraHalf[0]));
-
-                NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
-                resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
-                numberPickerHalf.setValue(0);
-            }
-        });
-
-        numberPickerHalf.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() { //몸무게
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-                extraHalf[0] = newVal * weight[0];
-                useTime[0] = (weight[0] * useHour[0] + useHalf[0] + (weight[0] * extraHour[0] + extraHalf[0]));
 
                 NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
                 resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력

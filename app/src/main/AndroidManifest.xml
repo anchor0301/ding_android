@@ -32,9 +32,6 @@
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
-        <activity
-            android:name=".CalculatorActivity"
-            android:exported="true" />
 
         <activity android:name=".Calcul" android:exported="true"/>
 

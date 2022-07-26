@@ -113,39 +113,6 @@
         </LinearLayout>
 
 
-        <!-- 추가 시간 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="추가 시간"
-                android:gravity="center"
-                android:textSize="30dp"
-                android:textStyle="bold" />
-
-            <NumberPicker
-                android:id="@+id/numberPickerHour"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="center" />
-
-            <NumberPicker
-                android:id="@+id/numberPickerHalf"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="center" />
-        </LinearLayout>
-
         <!-- 픽업 드랍 -->
         <LinearLayout
             android:layout_width="match_parent"
