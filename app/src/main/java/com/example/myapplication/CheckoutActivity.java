@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.AsyncTaskLoader;
 
 public class CheckoutActivity extends AppCompatActivity {
 
@@ -25,4 +27,12 @@ public class CheckoutActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    AsyncTask.execute(new Runnable() {
+        @Override
+        public void run() {
+            // All your networking logic
+            // should be here
+        }
+    });
 }
