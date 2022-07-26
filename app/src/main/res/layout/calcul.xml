@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CalculatorActivity">
+    tools:context=".Calcul">
 
     <!-- 상단 헤더 -->
     <LinearLayout
@@ -50,8 +50,16 @@
                 android:textAlignment="center"
                 android:textSize="30dp" />
 
-        </LinearLayout>
 
+        </LinearLayout>
+        <TextView
+            android:id="@+id/currentTime"
+            android:layout_marginRight="20dp"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="시간"
+            />
         <!-- 몸무게 -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,6 +83,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center" />
+
         </LinearLayout>
 
 
@@ -92,7 +101,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="이용 시간"
+                android:text="입실 시간"
                 android:gravity="center"
                 android:textSize="30dp"
                 android:textStyle="bold" />
@@ -136,7 +145,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="추가 거리"
+                android:hint="0"
                 android:inputType="number"
                 android:maxLength="2" />
 
@@ -154,7 +163,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="추가 거리"
+                android:hint="0"
                 android:inputType="number" />
         </LinearLayout>
 
