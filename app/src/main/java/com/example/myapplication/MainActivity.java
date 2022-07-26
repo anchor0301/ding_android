@@ -3,18 +3,22 @@ package com.example.myapplication;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.telephony.PhoneStateListener;
+import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -51,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setWindowAnimations(0);//화면 전환 애니메이션 제거
         //전화기록 불러올수 있게
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALL_LOG}, MODE_PRIVATE);
-
         //리스트 뷰에 넣을거
         itemList = new ArrayList<HashMap<String, Object>>();
         listView = findViewById(R.id.listView);
@@ -89,7 +92,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //메시지 전송 코드 작성
+                        String inputText = phone;
+                        String inputText2 = "위탁 이용 동의 안내서입니다.\n 아래 링크 들어가셔서 작성 부탁드립니다!";
+                        String inputText3 = "https://forms.gle/s5JEQbmjGLjkv7Br8";
+                        if (inputText.length() > 0 && inputText2.length() > 0) {
+                            sendSMS(inputText, inputText2);
+                            sendSMS(inputText, inputText3);
+                            Toast.makeText(getBaseContext(), inputText + "\n" + inputText2, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "전송 성공", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getBaseContext(), "전화번호와 메시지를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     }
+
                 });
                 ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {//전송 취소 버튼 클릭시 메시지 전송 취소
                     @Override
@@ -114,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
     public void messageSend(View view) {//직접 전화번호 작성해서 전송 버튼 클릭시 이벤트
         EditText editText = findViewById(R.id.editText);
         String phone = editText.getText().toString();
-
         if (phone == null || phone.equals("")) {
             Toast.makeText(getApplicationContext(), "잘못된 입력입니다.", Toast.LENGTH_SHORT).show();
         } else {
@@ -125,21 +138,32 @@ public class MainActivity extends AppCompatActivity {
             ad.setPositiveButton("전송", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-
+                    String inputText = phone;
+                    String inputText2 = "위탁 이용 동의 안내서입니다.\n 아래 링크 들어가셔서 작성 부탁드립니다!";
+                    String inputText3 = "https://forms.gle/s5JEQbmjGLjkv7Br8";
+                    if (inputText.length() > 0 && inputText2.length() > 0) {
+                        sendSMS(inputText, inputText2);
+                        sendSMS(inputText, inputText3);
+                        Toast.makeText(getBaseContext(), inputText + "\n" + inputText2, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "전송 성공", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(getBaseContext(), "전화번호와 메시지를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
-            });
-
-            ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-            ad.show();
-        }
 
 
+        });
+
+        ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        ad.show();
     }
+
+
+}
 
     public void getCallHistory() {//통화기록 조회
         String[] callSet = new String[]{CallLog.Calls.DATE, CallLog.Calls.TYPE, CallLog.Calls.NUMBER, CallLog.Calls.DURATION};
@@ -176,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
             c.moveToFirst();
             itemList.clear();
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 6; i++) {
                 String timeLog = timeLog(c);
                 String phoneLog = phoneLog(c);
                 addItemList(timeLog, phoneLog);
@@ -225,6 +249,12 @@ public class MainActivity extends AppCompatActivity {
         );
 
         listView.setAdapter(adapter);
+    }
+
+    private void sendSMS(String phoneNumber, String message) {
+
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(phoneNumber, null, message, null, null);
     }
 
 
