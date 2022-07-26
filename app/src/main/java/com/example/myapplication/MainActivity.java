@@ -93,17 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 ad.setPositiveButton("전송", new DialogInterface.OnClickListener() {//전송버튼 클릭시 메시지 전송
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //메시지 전송 코드 작성
-                        String inputText = phone;
-                        String inputText2 = "위탁 이용 동의 안내서입니다.\n 아래 링크 들어가셔서 작성 부탁드립니다!";
-                        String inputText3 = "https://forms.gle/s5JEQbmjGLjkv7Br8";
-                        if (inputText.length() > 0 && inputText2.length() > 0) {
-                            sendSMS(inputText, inputText2);
-                            sendSMS(inputText, inputText3);
-                            Toast.makeText(getBaseContext(), inputText + "\n" + inputText2, Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getApplicationContext(), "전송 성공", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getBaseContext(), "전화번호와 메시지를 입력해주세요.", Toast.LENGTH_SHORT).show();
+
                     }
 
                 });
@@ -121,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void calculatorClick(View view) {
         //계산기 화면으로 전환
-        Intent intent = new Intent(MainActivity.this, CalculatorActivity.class);
+        Intent intent = new Intent(MainActivity.this, Calcul.class);
         startActivity(intent);
         finish();
         //계산기 화면 만들어서 계산기
@@ -140,16 +130,7 @@ public class MainActivity extends AppCompatActivity {
             ad.setPositiveButton("전송", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    String inputText = phone;
-                    String inputText2 = "위탁 이용 동의 안내서입니다.\n 아래 링크 들어가셔서 작성 부탁드립니다!";
-                    String inputText3 = "https://forms.gle/s5JEQbmjGLjkv7Br8";
-                    if (inputText.length() > 0 && inputText2.length() > 0) {
-                        sendSMS(inputText, inputText2);
-                        sendSMS(inputText, inputText3);
-                        Toast.makeText(getBaseContext(), inputText + "\n" + inputText2, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(), "전송 성공", Toast.LENGTH_SHORT).show();
-                    } else
-                        Toast.makeText(getBaseContext(), "전화번호와 메시지를 입력해주세요.", Toast.LENGTH_SHORT).show();
+
                 }
 
 

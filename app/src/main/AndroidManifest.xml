@@ -36,6 +36,8 @@
             android:name=".CalculatorActivity"
             android:exported="true" />
 
+        <activity android:name=".Calcul" android:exported="true"/>
+
     </application>
 
 </manifest>
