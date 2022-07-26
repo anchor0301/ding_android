@@ -34,8 +34,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String INFO="정보";
-    private static final String PHONE="전화번호";
+    private static final String INFO = "정보";
+    private static final String PHONE = "전화번호";
 
     ArrayList<HashMap<String, Object>> itemList;
     ListView listView;
@@ -50,15 +50,15 @@ public class MainActivity extends AppCompatActivity {
 
         getWindow().setWindowAnimations(0);//화면 전환 애니메이션 제거
         //전화기록 불러올수 있게
-        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_CALL_LOG}, MODE_PRIVATE);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALL_LOG}, MODE_PRIVATE);
 
         //리스트 뷰에 넣을거
         itemList = new ArrayList<HashMap<String, Object>>();
         listView = findViewById(R.id.listView);
 
         //밑에 메뉴
-        messageImageView=findViewById(R.id.messageImage);
-        calculatorImageView=findViewById(R.id.calculatorImage);
+        messageImageView = findViewById(R.id.messageImage);
+        calculatorImageView = findViewById(R.id.calculatorImage);
 
         messageImageView.setImageResource(R.drawable.message2);
 
@@ -79,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
 
-                String phone=String.valueOf(itemList.get(position).get("전화번호"));//클릭한 리스트의 전화번호
+                String phone = String.valueOf(itemList.get(position).get("전화번호"));//클릭한 리스트의 전화번호
 
                 //알림창
-                AlertDialog.Builder ad=new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder ad = new AlertDialog.Builder(MainActivity.this);
                 ad.setTitle("메세지 전송");
-                ad.setMessage(phone+" 님께 메시지를 보내겠습니까?");
+                ad.setMessage(phone + " 님께 메시지를 보내겠습니까?");
                 ad.setPositiveButton("전송", new DialogInterface.OnClickListener() {//전송버튼 클릭시 메시지 전송
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -103,30 +103,32 @@ public class MainActivity extends AppCompatActivity {
         getCallHistory();
     }
 
-    public void calculatorClick(View view){
+    public void calculatorClick(View view) {
         //계산기 화면으로 전환
-        Intent intent=new Intent(MainActivity.this,CalculatorActivity.class);
+        Intent intent = new Intent(MainActivity.this, CalculatorActivity.class);
         startActivity(intent);
         finish();
         //계산기 화면 만들어서 계산기
     }
 
-    public void messageSend(View view){//직접 전화번호 작성해서 전송 버튼 클릭시 이벤트
-        EditText editText=findViewById(R.id.editText);
-        String phone=editText.getText().toString();
+    public void messageSend(View view) {//직접 전화번호 작성해서 전송 버튼 클릭시 이벤트
+        EditText editText = findViewById(R.id.editText);
+        String phone = editText.getText().toString();
 
-        if(phone==null || phone.equals("")){
-            Toast.makeText(getApplicationContext(),"잘못된 입력입니다.",Toast.LENGTH_SHORT).show();
-        }else{
-            AlertDialog.Builder ad=new AlertDialog.Builder(MainActivity.this);
+        if (phone == null || phone.equals("")) {
+            Toast.makeText(getApplicationContext(), "잘못된 입력입니다.", Toast.LENGTH_SHORT).show();
+        } else {
+            AlertDialog.Builder ad = new AlertDialog.Builder(MainActivity.this);
             ad.setTitle("메세지 전송");
-            ad.setMessage(phone+" 님께 메시지를 보내겠습니까?");
+            ad.setMessage(phone + " 님께 메시지를 보내겠습니까?");
+
             ad.setPositiveButton("전송", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
                 }
             });
+
             ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -143,41 +145,41 @@ public class MainActivity extends AppCompatActivity {
         String[] callSet = new String[]{CallLog.Calls.DATE, CallLog.Calls.TYPE, CallLog.Calls.NUMBER, CallLog.Calls.DURATION};
         Cursor c = getContentResolver().query(CallLog.Calls.CONTENT_URI, callSet, null, null, null);
 
-        if (c.getCount()==0) {//통화기록 없을 시
-            Toast.makeText(MainActivity.this,"통화 기록이 없습니다.",Toast.LENGTH_SHORT).show();
+        if (c.getCount() == 0) {//통화기록 없을 시
+            Toast.makeText(MainActivity.this, "통화 기록이 없습니다.", Toast.LENGTH_SHORT).show();
 
-        }else if(c.getCount()==1) {//통화기록 1개
+        } else if (c.getCount() == 1) {//통화기록 1개
             c.moveToFirst();
             String timeLog1 = timeLog(c);
             String phoneLog1 = phoneLog(c);
 
             itemList.clear();
-            addItemList(timeLog1,phoneLog1);
+            addItemList(timeLog1, phoneLog1);
 
             makeListAdapter();
 
-        }else if(c.getCount()==2) {//통화기록 2개
+        } else if (c.getCount() == 2) {//통화기록 2개
 
             c.moveToFirst();
             itemList.clear();
 
-            for(int i=0;i<2;i++){
-                String timeLog=timeLog(c);
-                String phoneLog=phoneLog(c);
-                addItemList(timeLog,phoneLog);
+            for (int i = 0; i < 2; i++) {
+                String timeLog = timeLog(c);
+                String phoneLog = phoneLog(c);
+                addItemList(timeLog, phoneLog);
                 c.moveToNext();
             }
 
             makeListAdapter();
 
-        }else{//그외
+        } else {//그외
             c.moveToFirst();
             itemList.clear();
 
-            for(int i=0;i<3;i++){
-                String timeLog=timeLog(c);
-                String phoneLog=phoneLog(c);
-                addItemList(timeLog,phoneLog);
+            for (int i = 0; i < 3; i++) {
+                String timeLog = timeLog(c);
+                String phoneLog = phoneLog(c);
+                addItemList(timeLog, phoneLog);
                 c.moveToNext();
             }
 
@@ -186,40 +188,44 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public String timeLog(Cursor c){//전화 시간 로그
+
+    public String timeLog(Cursor c) {//전화 시간 로그
 
         StringBuffer callBuff = new StringBuffer();
 
         //시간
-        long callDate=c.getLong(0);
+        long callDate = c.getLong(0);
         SimpleDateFormat datePattern = new SimpleDateFormat("MM-dd HH:mm:ss");
         String date_str = datePattern.format(new Date(callDate));
         callBuff.append(date_str);
 
         return callBuff.toString();
     }
-    public String phoneLog(Cursor c){//전화번호 로그
+
+    public String phoneLog(Cursor c) {//전화번호 로그
         return c.getString(2);
     }
 
-    public void addItemList(String timeLog, String phoneLog){//리스트에 아이템 추가
+    public void addItemList(String timeLog, String phoneLog) {//리스트에 아이템 추가
 
         HashMap<String, Object> p = new HashMap<>();
         p.put(INFO, timeLog);
-        p.put(PHONE,phoneLog);
+        p.put(PHONE, phoneLog);
 
         itemList.add(p);
     }
 
-    public void makeListAdapter(){//리스트뷰 어댑터
+    public void makeListAdapter() {//리스트뷰 어댑터
 
         //리스트 어뎁터
         ListAdapter adapter = new SimpleAdapter(
                 MainActivity.this, itemList, R.layout.list,
-                new String[]{INFO,PHONE},
-                new int[]{R.id.infomation,R.id.phone}
+                new String[]{INFO, PHONE},
+                new int[]{R.id.infomation, R.id.phone}
         );
 
         listView.setAdapter(adapter);
     }
+
+
 }

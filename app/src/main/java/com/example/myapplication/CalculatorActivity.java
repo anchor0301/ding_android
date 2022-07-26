@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -8,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -36,7 +38,6 @@ public class CalculatorActivity extends AppCompatActivity {
     EditText EditText1;
     EditText EditText2;
     EditText EditText3;
-    private CustomDialog customDialog;
 
 
     final int[] addOnsPickUp = {0}; //픽업
@@ -56,20 +57,15 @@ public class CalculatorActivity extends AppCompatActivity {
 
         getWindow().setWindowAnimations(0);//화면 전환 애니메이션 제거
 
-        //다이얼로그 밖의 화면은 흐리게 만들어줌
-        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        layoutParams.dimAmount = 0.8f;
-
         //초기화
         initNumberPicker();
 
-        playroom();
+        playroom();//놀이방 기준 계산
         textUseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //클릭시 켜짐
-                 }
+                Toast.makeText(getApplicationContext(),"추가 시간 출력",Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -97,9 +93,6 @@ public class CalculatorActivity extends AppCompatActivity {
         EditText1 = (EditText) findViewById(R.id.EditText1);
         EditText2 = (EditText) findViewById(R.id.EditText2);
         EditText3 = (EditText) findViewById(R.id.EditText3);
-
-
-
 
 
         resultOutput.setText("몸무게를 설정해주세요.");
@@ -310,14 +303,5 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
 
-
-    public void btnOnclick(View view) {
-        switch (view.getId()){
-            case R.id.useTime:
-                customDialog = new CustomDialog(this,"다이어로그에 들어갈 내용입니다.");
-                customDialog.show();
-                break;
-
-        }
-    }
 }
+
