@@ -1,28 +1,23 @@
 package com.example.myapplication;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputFilter;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class CalculatorActivity extends AppCompatActivity {
+public class Calcul extends AppCompatActivity {
+
     ImageView messageImageView;
     ImageView calculatorImageView;
 
@@ -40,7 +35,6 @@ public class CalculatorActivity extends AppCompatActivity {
     EditText EditText2;
     EditText EditText3;
 
-
     final int[] addOnsPickUp = {0}; //픽업
     final int[] addOnsDrop = {0};   //드롭
     final int[] addOnShower = {0};  //목욕
@@ -52,11 +46,17 @@ public class CalculatorActivity extends AppCompatActivity {
     final int[] useTime = {0};         //총 이용시간
 
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculator);
+        setContentView(R.layout.calcul);
 
         getWindow().setWindowAnimations(0);//화면 전환 애니메이션 제거
+
+        messageImageView = findViewById(R.id.messageImage);
+        messageImageView.setImageResource(R.drawable.message);
+        calculatorImageView = findViewById(R.id.calculatorImage);
+        calculatorImageView.setImageResource(R.drawable.calculator2);
 
         //초기화
         initNumberPicker();
@@ -68,19 +68,17 @@ public class CalculatorActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"추가 시간 출력",Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     public void messageClick(View view) {
-        Intent intent = new Intent(CalculatorActivity.this, MainActivity.class);
+        Intent intent = new Intent(Calcul.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
     public void initNumberPicker() {
-        messageImageView = findViewById(R.id.messageImage);
-        messageImageView.setImageResource(R.drawable.message);
-        calculatorImageView = findViewById(R.id.calculatorImage);
-        calculatorImageView.setImageResource(R.drawable.calculator2);
+
         resultOutput = (TextView) findViewById(R.id.resultOutput);
         textUseTime = (TextView) findViewById(R.id.useTime);
         numberPickerWeight = (NumberPicker) findViewById(R.id.numberPicker);
@@ -112,7 +110,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
         //이용 시간
         numberPickerUseHour.setMinValue(0);      //시간 최소 0
-        numberPickerUseHour.setMaxValue(23);     //시간 최소23
+        numberPickerUseHour.setMaxValue(23);     //시간 최대23
         numberPickerUseHour.setValue(0);         //기본 0
         numberPickerUseHour.setOnLongPressUpdateInterval(1000);
         numberPickerUseHour.setWrapSelectorWheel(false); //무한 휠 안됨
@@ -120,7 +118,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
         //이용 분
         numberPickerUseHalf.setMinValue(0);      //몸무게 최소 0
-        numberPickerUseHalf.setMaxValue(1);     //몸무게 최소59
+        numberPickerUseHalf.setMaxValue(1);     //몸무게 최대59
 
         numberPickerUseHalf.setWrapSelectorWheel(false); //무한 휠 안됨
         numberPickerUseHalf.setDisplayedValues(new String[]{
@@ -129,7 +127,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
         //몸무게
         numberPickerWeight.setMinValue(1);      //몸무게 최소 1
-        numberPickerWeight.setMaxValue(20);     //몸무게 최소20
+        numberPickerWeight.setMaxValue(20);     //몸무게 최대20
         numberPickerWeight.setValue(5);         //기본값 5
         weight[0] = 1500; //5kg 이면 1,500원
         numberPickerWeight.setWrapSelectorWheel(false); //무한 휠 허용
@@ -137,7 +135,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
         //초과 시간
         numberPickerHour.setMinValue(0);      //시간 최소 0
-        numberPickerHour.setMaxValue(23);     //시간 최소23
+        numberPickerHour.setMaxValue(23);     //시간 최대23
         numberPickerHour.setValue(0);         //기본 0
         numberPickerHour.setOnLongPressUpdateInterval(1000);
         numberPickerHour.setWrapSelectorWheel(false); //무한 휠 허용
@@ -145,7 +143,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
         //초과 분
         numberPickerHalf.setMinValue(0);      //몸무게 최소 0
-        numberPickerHalf.setMaxValue(1);     //몸무게 최소59
+        numberPickerHalf.setMaxValue(1);     //몸무게 최대59
         numberPickerHalf.setDisplayedValues(new String[]{
                 "0", "30"
         });
@@ -155,7 +153,6 @@ public class CalculatorActivity extends AppCompatActivity {
         numberPickerHalf.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //키보드 입력 방지
 
     }
-
 
     public void playroom() {
 
@@ -303,6 +300,4 @@ public class CalculatorActivity extends AppCompatActivity {
         return decimalFormat.format(decimalFormat);
     }
 
-
 }
-
