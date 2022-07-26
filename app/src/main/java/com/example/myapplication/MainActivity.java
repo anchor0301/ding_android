@@ -59,11 +59,13 @@ public class MainActivity extends AppCompatActivity {
         itemList = new ArrayList<HashMap<String, Object>>();
         listView = findViewById(R.id.listView);
 
+        getCallHistory();
         //밑에 메뉴
         messageImageView = findViewById(R.id.messageImage);
         calculatorImageView = findViewById(R.id.calculatorImage);
-
         messageImageView.setImageResource(R.drawable.message2);
+
+
 
         //리스트뷰 새로고침 시 동작
         mysrl = findViewById(R.id.content_srl);
@@ -200,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             c.moveToFirst();
             itemList.clear();
 
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < 3; i++) {
                 String timeLog = timeLog(c);
                 String phoneLog = phoneLog(c);
                 addItemList(timeLog, phoneLog);
