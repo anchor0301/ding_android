@@ -7,7 +7,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.AsyncTaskLoader;
-
+import com.example.myapplication.RestAPI;
 public class CheckoutActivity extends AppCompatActivity {
 
     @Override
@@ -28,11 +28,11 @@ public class CheckoutActivity extends AppCompatActivity {
         finish();
     }
 
-    AsyncTask.execute(new Runnable() {
-        @Override
-        public void run() {
-            // All your networking logic
-            // should be here
-        }
-    });
+    public void kakao(View view){
+        RestAPI restAPI=new RestAPI();
+        restAPI.sampleMethod();
+    }
+
+
+
 }
