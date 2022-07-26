@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Application</string>
+
+    <string-array name="allSize">
+        <item>소형</item>
+        <item>중형</item>
+        <item>대형</item>
+    </string-array>
 </resources>

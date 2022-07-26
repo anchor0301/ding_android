@@ -14,15 +14,17 @@
         <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/drawable/button_round.xml" value="0.2545" />
         <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.255" />
         <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/layout/activity_calculator.xml" value="0.25" />
         <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/layout/activity_call_receiver.xml" value="0.12132725430597771" />
-        <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/layout/activity_custom_dialog.xml" value="0.1" />
+        <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/layout/activity_extra_time.xml" value="0.11423390752493201" />
+        <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/layout/activity_popup.xml" value="0.1435436690346845" />
         <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/layout/activity_splash.xml" value="0.16" />
+        <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/layout/calcul.xml" value="0.22" />
         <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/layout/list.xml" value="0.1" />
         <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.255" />
         <entry key="..\:/Code WorkSpace/Android Studio/ding_android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.255" />
-        <entry key="..\:/gitClone/ding_android/app/src/main/res/layout/activity_calculator.xml" value="0.25679347826086957" />
-        <entry key="..\:/gitClone/ding_android/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/gitClone/ding_android/app/src/main/res/layout/activity_splash.xml" value="0.3482789855072464" />
       </map>
     </option>
   </component>
