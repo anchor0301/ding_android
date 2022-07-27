@@ -46,7 +46,8 @@ public class Calcul extends AppCompatActivity {
     final int[] useHalf = {0};      //이용 분
     final int[] useTime = {0};         //총 이용시간
 
-    int CurrentTime = Integer.parseInt(getCurrentDate_hour());
+    //int CurrentTime = Integer.parseInt(getCurrentDate_hour()); TODO 주석제거
+    int CurrentTime = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,27 +116,29 @@ public class Calcul extends AppCompatActivity {
 
         //이용 시간
         numberPickerUseHour.setMinValue(6);      //시간 최소 6
-        numberPickerUseHour.setMaxValue(CurrentTime+1);     //시간 현재시간이 최대
-        numberPickerUseHour.setValue(CurrentTime-1);         //기본 6
+        //numberPickerUseHour.setMaxValue(CurrentTime + 1);     //시간 현재시간이 최대       TODO 주석제거
+        //numberPickerUseHour.setValue(CurrentTime - 1);         //기본 6                 TODO 주석제거!
+
+        numberPickerUseHour.setMaxValue(12); //TODO : 테스트용 삭제해야함!
+
         numberPickerUseHour.setOnLongPressUpdateInterval(1000);
         numberPickerUseHour.setWrapSelectorWheel(false); //무한 휠 안됨
         numberPickerUseHour.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //키보드 입력 방지
 
         //이용 분
-        numberPickerUseHalf.setMinValue(0);      //몸무게 최소 0
-        numberPickerUseHalf.setMaxValue(1);     //몸무게 최대30
-        numberPickerUseHalf.setValue(1);
-        useHalf[0] = 1500;      //
-        numberPickerUseHalf.setWrapSelectorWheel(false); //무한 휠 안됨
+        numberPickerUseHalf.setMinValue(0);      //분 최소 0
+        numberPickerUseHalf.setMaxValue(5);     //분 최대55
+        numberPickerUseHalf.setValue(0);
+        numberPickerUseHalf.setWrapSelectorWheel(true); //무한 휠 안됨
         numberPickerUseHalf.setDisplayedValues(new String[]{
-                "30", "0"
-        });
+                "0","10","20","30","40","50"
+                });
 
         //몸무게
         numberPickerWeight.setMinValue(1);      //몸무게 최소 1
         numberPickerWeight.setMaxValue(20);     //몸무게 최대20
-        numberPickerWeight.setValue(6);         //기본값 5
-        weight[0] = 1500; //5kg 이면 1,500원
+        numberPickerWeight.setValue(3);         //기본값 3
+        weight[0] = 1250; //3kg 이면 1,250원
         numberPickerWeight.setWrapSelectorWheel(false); //무한 휠 허용
         numberPickerWeight.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //키보드 입력 방지
 
@@ -160,7 +163,7 @@ public class Calcul extends AppCompatActivity {
 
 
                 resultOutput.setText("이용 시간을 설정해주세요");
-                numberPickerUseHour.setValue(CurrentTime-1);
+                //numberPickerUseHour.setValue(CurrentTime - 1);        TODO 주석제거!
                 numberPickerUseHalf.setValue(1);
                 useTime[0] = 0;
                 useHour[0] = 0;
@@ -171,19 +174,24 @@ public class Calcul extends AppCompatActivity {
         numberPickerUseHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() { //몸무게
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                useHour[0] = CurrentTime - newVal;
-                useTime[0] = (weight[0] * useHour[0] + useHalf[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
+                useHour[0] = (weight[0]*2)*(CurrentTime - newVal);
+                useTime[0] = ( useHour[0] + useHalf[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
                 NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
-                resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
+                resultOutput.setText(String.format(" %s", moneyFormat.format( useTime[0])));      //출력
             }
         });
 
         numberPickerUseHalf.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() { //몸무게
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-                useHalf[0] = newVal * weight[0];
-                useTime[0] = (weight[0] * useHour[0] + useHalf[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
+                if(newVal==0){
+                    useHalf[0]=0;
+                }else if(newVal<=3){
+                   useHalf[0]=-weight[0];
+                }else{
+                    useHalf[0]=-weight[0]*2;
+                }
+                useTime[0] = ( useHour[0] + useHalf[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
                 NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
                 resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
 
@@ -218,7 +226,7 @@ public class Calcul extends AppCompatActivity {
             public void onClick(View v) {
                 if (((CheckBox) v).isChecked()) {
                     // TODO : CheckBox is checked.
-                    addOnsDrop[0]=5000;
+                    addOnsDrop[0] = 5000;
                     EditText2.setEnabled(true);
                     EditText2.setHint("추가 거리");
                 } else {
@@ -278,25 +286,24 @@ public class Calcul extends AppCompatActivity {
         @Override
         public void run() {
 
-            while(true){
-                try{
+            while (true) {
+                try {
                     Thread.sleep(1000);
 
-                }catch(Exception e){
+                } catch (Exception e) {
 
                 }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        currentTime.setText(getCurrentDate_date());
+                        //currentTime.setText(getCurrentDate_date()); TODO 주석 제거
 
-                        numberPickerUseHour.setMaxValue(CurrentTime+1);     //시간 현재시간이 최대
+                        //numberPickerUseHour.setMaxValue(CurrentTime + 1);     //시간 현재시간이 최대  TODO 주석제거!
                     }
                 });
             }
         }
     };
-
 
 
 }
