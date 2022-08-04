@@ -1,7 +1,12 @@
 package com.example.myapplication;
 
+import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Half;
 import android.view.View;
 import android.widget.CheckBox;
@@ -9,12 +14,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,45 +34,86 @@ public class Calcul extends AppCompatActivity {
     ImageView messageImageView;
     ImageView calculatorImageView;
     NumberPicker numberPickerWeight;
-    NumberPicker numberPickerUseHour;
-    NumberPicker numberPickerUseHalf;
     TextView resultOutput;
     TextView textUseTime;
     TextView currentTime;
+    TimePicker tp;  //타임피커
+    Calendar c;     //켈린더
     CheckBox checkBox1;
     CheckBox checkBox2;
     CheckBox checkBox3;
     EditText EditText1;
     EditText EditText2;
     EditText EditText3;
+
+    //시간 포멧
     public static String format_date = "MM/dd HH:mm:ss";
     public static String format_hour = "HH";
-    final int[] addOnsPickUp = {0}; //픽업
-    final int[] addOnsDrop = {0};   //드롭
-    final int[] addOnShower = {0};  //목욕
-    final int[] weight = {5};       //몸무게
-    final int[] useHour = {0};      //이용 시간
-    final int[] useHalf = {0};      //이용 분
-    final int[] useTime = {0};         //총 이용시간
+    public static String format_half = "mm";
 
-    //int CurrentTime = Integer.parseInt(getCurrentDate_hour()); TODO 주석제거
-    int CurrentTime = 12;
+
+
+    int moneyHour;  //시간당 돈
+    int Half; //분
+    int moneyHalf; //시간당 분
+
+
+    private long mLastClickTime = 0; //더블클릭후 실행  시간제한
+
+    final int[] addOnsPickUp = {0};     //픽업
+    final int[] addOnsDrop = {0};       //드롭
+    final int[] addOnShower = {0};      //목욕
+    final int[] weight = {5};           //몸무게
+
+    //시간 계산
+    final int[] useHour = {0};        //시간
+    final int[] useTime = {0};         //총 시간
+    //useTime = useHour + useHalf
+    // 총 시간 = (시간 + 분)
+
+    int CurrentTime = Integer.parseInt(getCurrentDate_hour());  //현재시간
+    int CurrentHalf = Integer.parseInt(getCurrentDate_half());  //현재분
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calcul);
 
-        getWindow().setWindowAnimations(0);//화면 전환 애니메이션 제거
+        getWindow().setWindowAnimations(0); //화면 전환 애니메이션 제거
 
-        //초기화
-        initNumberPicker();
+        initNumberPicker(); //초기화
 
         playroom();//놀이방 기준 계산
+
+
+        //출력화면 떠블클릭시 요약 화면 출력
+        resultOutput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 700) {
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(Calcul.this);
+                    dlg.setTitle("요약"); //제목
+                    dlg.setMessage("몸무게 : "+weight[0]+"\n시간 비용 : "+moneyHour+"  분당 비용 : "+moneyHalf+"\n______추가 서비스 ___________"+
+                            "\n     픽업 : "+addOnsPickUp[0] +"\n     드랍 : "+addOnsDrop[0]+"\n     목욕 : "+addOnShower[0]+"\n     총 : "+useTime[0]); // 메시지
+
+                    dlg.show();
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+
+            }
+        });
+
+        //입실시간 떠블클릭시 하하 출력
         textUseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "아부지 사랑해요", Toast.LENGTH_SHORT).show();
+                //더블클릭시 다이어로그 뷰 출력
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1500) {
+                    Toast.makeText(getApplicationContext(), "하하", Toast.LENGTH_SHORT).show();
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+
+
             }
         });
 
@@ -71,6 +121,7 @@ public class Calcul extends AppCompatActivity {
 
 
     }
+
 
     public void messageClick(View view) {
         Intent intent = new Intent(Calcul.this, MainActivity.class);
@@ -80,6 +131,7 @@ public class Calcul extends AppCompatActivity {
 
     public void initNumberPicker() {
 
+        tp = (TimePicker) findViewById(R.id.tp); //타임피커
         messageImageView = findViewById(R.id.messageImage);
         messageImageView.setImageResource(R.drawable.message);
         calculatorImageView = findViewById(R.id.calculatorImage);
@@ -88,8 +140,6 @@ public class Calcul extends AppCompatActivity {
         resultOutput = (TextView) findViewById(R.id.resultOutput);
         textUseTime = (TextView) findViewById(R.id.useTime);
         numberPickerWeight = (NumberPicker) findViewById(R.id.numberPicker);
-        numberPickerUseHour = (NumberPicker) findViewById(R.id.numberPickerUseHour);
-        numberPickerUseHalf = (NumberPicker) findViewById(R.id.numberPickerUseHalf);
         checkBox1 = (CheckBox) findViewById(R.id.checkBox1);
         checkBox2 = (CheckBox) findViewById(R.id.checkBox2);
         checkBox3 = (CheckBox) findViewById(R.id.checkBox3);
@@ -97,14 +147,12 @@ public class Calcul extends AppCompatActivity {
         EditText2 = (EditText) findViewById(R.id.EditText2);
         EditText3 = (EditText) findViewById(R.id.EditText3);
 
-        //현재 시간 출력
-        currentTime.setText(getCurrentDate_date());
-
         resultOutput.setText("몸무게를 설정해주세요.");
+        //타임피커
+        tp.setIs24HourView(true);
 
 
         //부가 기능 사전 설정
-
         EditText1.setEnabled(false);
         EditText1.setHint("비활성화");
 
@@ -114,25 +162,6 @@ public class Calcul extends AppCompatActivity {
         EditText3.setEnabled(false);
         EditText3.setHint("비활성화");
 
-        //이용 시간
-        numberPickerUseHour.setMinValue(6);      //시간 최소 6
-        //numberPickerUseHour.setMaxValue(CurrentTime + 1);     //시간 현재시간이 최대       TODO 주석제거
-        //numberPickerUseHour.setValue(CurrentTime - 1);         //기본 6                 TODO 주석제거!
-
-        numberPickerUseHour.setMaxValue(12); //TODO : 테스트용 삭제해야함!
-
-        numberPickerUseHour.setOnLongPressUpdateInterval(1000);
-        numberPickerUseHour.setWrapSelectorWheel(false); //무한 휠 안됨
-        numberPickerUseHour.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //키보드 입력 방지
-
-        //이용 분
-        numberPickerUseHalf.setMinValue(0);      //분 최소 0
-        numberPickerUseHalf.setMaxValue(5);     //분 최대55
-        numberPickerUseHalf.setValue(0);
-        numberPickerUseHalf.setWrapSelectorWheel(true); //무한 휠 안됨
-        numberPickerUseHalf.setDisplayedValues(new String[]{
-                "0","10","20","30","40","50"
-                });
 
         //몸무게
         numberPickerWeight.setMinValue(1);      //몸무게 최소 1
@@ -146,6 +175,7 @@ public class Calcul extends AppCompatActivity {
     }
 
     public void playroom() {
+
 
         //몸무게 1~20
         numberPickerWeight.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() { //몸무게
@@ -163,40 +193,51 @@ public class Calcul extends AppCompatActivity {
 
 
                 resultOutput.setText("이용 시간을 설정해주세요");
-                //numberPickerUseHour.setValue(CurrentTime - 1);        TODO 주석제거!
-                numberPickerUseHalf.setValue(1);
                 useTime[0] = 0;
                 useHour[0] = 0;
-                useHalf[0] = 0;
+
             }
         });
 
-        numberPickerUseHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() { //몸무게
+
+        //타임피커
+            //현재 시간을 타임 피커의 초기값으로 사용
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                useHour[0] = (weight[0]*2)*(CurrentTime - newVal);
-                useTime[0] = ( useHour[0] + useHalf[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+
+
+                //todo if(분>=30,무게*2,무게)
+                if ((CurrentHalf - minute) < 0) {
+                    //moneyHalf = weight[0] * 2;
+                    moneyHour =( CurrentTime - hourOfDay - 1) * weight[0] * 2; //시간당 돈;
+                    Half = CurrentHalf - minute + 60;
+                } else {
+
+                    moneyHour = (CurrentTime - hourOfDay) * weight[0] * 2; //시간당 돈;
+                    Half = CurrentHalf - minute;
+                }
+
+                if (Half >= 30) {
+                    moneyHalf = weight[0] * 2;
+
+                }else{
+                    moneyHalf = weight[0];
+                }
+
+                useHour[0] = moneyHour + moneyHalf; //시간+분 돈 더하기
+
+                useTime[0] = (useHour[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
                 NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
                 resultOutput.setText(String.format(" %s", moneyFormat.format( useTime[0])));      //출력
-            }
-        });
 
-        numberPickerUseHalf.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() { //몸무게
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                if(newVal==0){
-                    useHalf[0]=0;
-                }else if(newVal<=3){
-                   useHalf[0]=-weight[0];
-                }else{
-                    useHalf[0]=-weight[0]*2;
-                }
-                useTime[0] = ( useHour[0] + useHalf[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
-                NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
-                resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
 
             }
         });
+        //타임피커 끝
 
 
         checkBox1.setOnClickListener(new CheckBox.OnClickListener() {//체크 박스1 상태 감지 (픽업)
@@ -207,17 +248,44 @@ public class Calcul extends AppCompatActivity {
                     addOnsPickUp[0] = 5000;
                     EditText1.setEnabled(true);
                     EditText1.setHint("추가 거리");
-
                 } else {
                     // TODO : CheckBox is unchecked.
-
                     addOnsPickUp[0] = 0;
                     EditText1.setEnabled(false);
                     EditText1.setHint("비활성화");
                 }
-                useTime[0] = (weight[0] * useHour[0] + useHalf[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
+                //에딧택스트 변화감지
+                EditText1.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        String input = EditText1.getText().toString();
+                        int plus;
+                        if(input.equals("")){
+                            addOnsPickUp[0]=5000;
+                        }else{
+                            plus = Integer.parseInt(input);
+                            addOnsPickUp[0]=(plus*1000)+5000;
+                        }
+
+                        useTime[0] = (useHour[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
+                        NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
+                        resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {}
+                });
+
+
+                useTime[0] = (useHour[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
                 NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
                 resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
+
+
             }
         });
 
@@ -236,7 +304,35 @@ public class Calcul extends AppCompatActivity {
                     EditText2.setEnabled(false);
                     EditText2.setHint("비활성화");
                 }
-                useTime[0] = (weight[0] * useHour[0] + useHalf[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
+
+                EditText2.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        String input = EditText2.getText().toString();
+                        int plus;
+                        if(input.equals("")){
+
+                            addOnsDrop[0]=5000;
+                        }else{
+                            plus = Integer.parseInt(input);
+                            addOnsDrop[0]=(plus*1000)+5000;
+
+                        }
+
+                        useTime[0] = (useHour[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
+                        NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
+                        resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {}
+                });
+
+                useTime[0] = (useHour[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
                 NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
                 resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
             }
@@ -257,7 +353,39 @@ public class Calcul extends AppCompatActivity {
                     EditText3.setEnabled(false);
                     EditText3.setHint("비활성화");
                 }
-                useTime[0] = (weight[0] * useHour[0] + useHalf[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
+                EditText3.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        String input = EditText3.getText().toString();
+                        int plus;
+                        if(input.equals("")){
+
+                            addOnShower[0]=15000;
+                        }else{
+                            plus = Integer.parseInt(input);
+                            addOnShower[0]=plus;
+
+                        }
+
+                        useTime[0] = (useHour[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
+                        NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
+                        resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                useTime[0] = ((int) useHour[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
                 NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
                 resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
             }
@@ -276,12 +404,19 @@ public class Calcul extends AppCompatActivity {
         return format.format(currentTime);
     }
 
+    public static String getCurrentDate_half() {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat(format_half, Locale.getDefault());
+        return format.format(currentTime);
+    }
+
     public static String getCurrentDate_date() {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat(format_date, Locale.getDefault());
         return format.format(currentTime);
     }
 
+    //실시간 시간 출력
     Runnable r = new Runnable() {
         @Override
         public void run() {
@@ -296,9 +431,10 @@ public class Calcul extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //currentTime.setText(getCurrentDate_date()); TODO 주석 제거
+                        currentTime.setText(getCurrentDate_date());
 
-                        //numberPickerUseHour.setMaxValue(CurrentTime + 1);     //시간 현재시간이 최대  TODO 주석제거!
+                        CurrentTime = Integer.parseInt(getCurrentDate_hour());  //현재시간
+                        CurrentHalf = Integer.parseInt(getCurrentDate_half());  //현재분
                     }
                 });
             }
