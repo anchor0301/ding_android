@@ -19,6 +19,10 @@ import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class RestAPI {
+    String phoneNumber;
+    public RestAPI(String phoneNumber){
+        this.phoneNumber = phoneNumber;
+    }
     Disposable backgroundTask;
     HttpURLConnection conn;
     URL url;
@@ -62,7 +66,7 @@ public class RestAPI {
             map.put("key","value");
             //요청 보낼 body
             json.put("service","2210077160");
-            json.put("mobile","01040788094");
+            json.put("mobile",phoneNumber);   //보낼 전화번호
             json.put("message","이용해주셔서 감사합니다.\n\n"+
                     "추후 더 나은 서비스 운영과 의견 수렴 및 반영을 위해 5분만 시간을 내어주셔서 설문에 응해주시면 감사하겠습니다!");
             json.put("template","10011");

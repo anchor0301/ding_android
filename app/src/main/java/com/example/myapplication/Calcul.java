@@ -123,11 +123,7 @@ public class Calcul extends AppCompatActivity {
     }
 
 
-    public void messageClick(View view) {
-        Intent intent = new Intent(Calcul.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
+
 
     public void initNumberPicker() {
 
@@ -146,6 +142,9 @@ public class Calcul extends AppCompatActivity {
         EditText1 = (EditText) findViewById(R.id.EditText1);
         EditText2 = (EditText) findViewById(R.id.EditText2);
         EditText3 = (EditText) findViewById(R.id.EditText3);
+
+
+        currentTime.setText(getCurrentDate_date());//시간출력
 
         resultOutput.setText("몸무게를 설정해주세요.");
         //타임피커
@@ -393,6 +392,20 @@ public class Calcul extends AppCompatActivity {
 
     }
 
+    public void messageClick(View view) {
+        Intent intent = new Intent(Calcul.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+    public void checkoutClick(View view){
+
+        Intent intent=new Intent(Calcul.this,CheckoutActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public static String moneyFormatToWon(int inputMoney) {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         return decimalFormat.format(decimalFormat);
@@ -431,7 +444,7 @@ public class Calcul extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        currentTime.setText(getCurrentDate_date());
+                        currentTime.setText(getCurrentDate_date());//실시간 시간 출력
 
                         CurrentTime = Integer.parseInt(getCurrentDate_hour());  //현재시간
                         CurrentHalf = Integer.parseInt(getCurrentDate_half());  //현재분

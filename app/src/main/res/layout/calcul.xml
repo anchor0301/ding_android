@@ -111,7 +111,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tp"
-                android:layout_below="@id/tv"
                 android:timePickerMode="spinner" />
 
 
@@ -234,16 +233,16 @@
 
 
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="임시" />
+                android:text="임시"
+                android:onClick="checkoutClick"/>
 
         </LinearLayout>
 
