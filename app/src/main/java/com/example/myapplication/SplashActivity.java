@@ -14,8 +14,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         moveMain();
-
-
     }
 
     private void moveMain() {
@@ -25,15 +23,13 @@ public class SplashActivity extends AppCompatActivity {
             public void run()
             {
                 //new Intent(현재 context, 이동할 activity)
-
-
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                 startActivity(intent);	//intent 에 명시된 액티비티로 이동
 
                 finish();	//현재 액티비티 종료
             }
-        }, 200); // sec초 정도 딜레이를 준 후 시작
+        }, 500); // sec초 정도 딜레이를 준 후 시작
     }
 
 }

@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         });
         getCallHistory();
     }
-
+    //계산기 화면 전환
     public void calculatorClick(View view) {
         //계산기 화면으로 전환
         Intent intent = new Intent(MainActivity.this, Calcul.class);
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
         //계산기 화면 만들어서 계산기
     }
-
+    //퇴실 메시지 전환
     public void checkoutClick(View view){
 
         Intent intent=new Intent(MainActivity.this,CheckoutActivity.class);

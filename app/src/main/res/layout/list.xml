@@ -9,9 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="20dp"
-/>
-
+        android:textSize="20dp" />
+    <!--전화온 시간-->
     <TextView
         android:id="@+id/infomation"
         android:layout_width="match_parent"

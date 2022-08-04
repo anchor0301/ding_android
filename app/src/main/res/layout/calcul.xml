@@ -25,7 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="8"
         android:background="@drawable/border_down"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -198,14 +198,54 @@
 
 
     </LinearLayout>
-
+    <!--서비스 메뉴 선택-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/pink"
         android:orientation="horizontal">
+        <!-- 놀이방 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="놀이방"
+                android:textSize="30dp"
+                android:backgroundTint="#9079687A"
+                android:onClick="checkoutClick"/>
+
+        </LinearLayout>
+
+
+        <!--호텔링-->
+        <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="호텔링"
+            android:textSize="30dp"
+            android:onClick="checkoutClick"/>
+
+    </LinearLayout>
+
+    </LinearLayout>
+    <!--메뉴-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/pink"
+        android:orientation="horizontal">
+        <!--동의서 전송-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -219,7 +259,7 @@
                 android:src="@drawable/message" />
 
         </LinearLayout>
-
+        <!--계산기-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -233,6 +273,7 @@
 
 
         </LinearLayout>
+        <!--퇴실 전송-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
