@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".CheckoutActivity"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,54 +24,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="9"
+        android:gravity="center"
         android:background="@drawable/border_down"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center"
-
-            android:text="직접 입력"
-            android:textSize="20dp" />
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="7"
-            android:inputType="number"
-            android:textSize="20dp" />
-
-        <android.widget.Button
-            android:layout_width="0dp"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="2"
-            android:background="@color/pink"
-            android:onClick="messageSend"
-            android:text="전송"
-
-            android:textSize="18dp" />
+            android:text="btn"
+            android:onClick="kakao"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:text="전화번호"
+            android:id="@+id/printPhoneNumber"/>
     </LinearLayout>
 
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/content_srl"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_weight="8">
 
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,6 +61,7 @@
                 android:id="@+id/messageImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:onClick="messageClick"
                 android:src="@drawable/message" />
 
         </LinearLayout>
@@ -115,8 +89,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="임시"
-                android:onClick="checkoutClick"/>
+                android:text="임시" />
 
         </LinearLayout>
 

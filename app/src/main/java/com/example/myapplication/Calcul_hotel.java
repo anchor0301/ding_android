@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class Calcul extends AppCompatActivity {
+public class Calcul_hotel extends AppCompatActivity {
 
     ImageView messageImageView;
     ImageView calculatorImageView;
@@ -47,7 +48,6 @@ public class Calcul extends AppCompatActivity {
     public static String format_half = "mm";
 
 
-
     int moneyHour;  //시간당 돈
     int Half; //분
     int moneyHalf; //시간당 분
@@ -67,12 +67,13 @@ public class Calcul extends AppCompatActivity {
     // 총 시간 = (시간 + 분)
 
     int CurrentTime = Integer.parseInt(getCurrentDate_hour());  //현재시간
+
     int CurrentHalf = Integer.parseInt(getCurrentDate_half());  //현재분
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.calcul);
+        setContentView(R.layout.calcul_hotel);
 
         getWindow().setWindowAnimations(0); //화면 전환 애니메이션 제거
 
@@ -86,10 +87,10 @@ public class Calcul extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 700) {
-                    AlertDialog.Builder dlg = new AlertDialog.Builder(Calcul.this);
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(Calcul_hotel.this);
                     dlg.setTitle("요약"); //제목
-                    dlg.setMessage("몸무게 : "+weight[0]+"\n시간 비용 : "+moneyHour+"  분당 비용 : "+moneyHalf+"\n______추가 서비스 ___________"+
-                            "\n     픽업 : "+addOnsPickUp[0] +"\n     드랍 : "+addOnsDrop[0]+"\n     목욕 : "+addOnShower[0]+"\n     총 : "+useTime[0]); // 메시지
+                    dlg.setMessage("몸무게 : " + weight[0] + "\n시간 비용 : " + moneyHour + "  분당 비용 : " + moneyHalf + "\n______추가 서비스 ___________" +
+                            "\n     픽업 : " + addOnsPickUp[0] + "\n     드랍 : " + addOnsDrop[0] + "\n     목욕 : " + addOnShower[0] + "\n     총 : " + useTime[0]); // 메시지
 
                     dlg.show();
                 }
@@ -117,9 +118,7 @@ public class Calcul extends AppCompatActivity {
 
     }
 
-
-
-
+    //초기설정
     public void initNumberPicker() {
 
         tp = (TimePicker) findViewById(R.id.tp); //타임피커
@@ -167,7 +166,7 @@ public class Calcul extends AppCompatActivity {
 
 
     }
-
+    //놀이방
     public void playroom() {
 
 
@@ -195,7 +194,7 @@ public class Calcul extends AppCompatActivity {
 
 
         //타임피커
-            //현재 시간을 타임 피커의 초기값으로 사용
+        //현재 시간을 타임 피커의 초기값으로 사용
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
@@ -207,7 +206,7 @@ public class Calcul extends AppCompatActivity {
                 //todo if(분>=30,무게*2,무게)
                 if ((CurrentHalf - minute) < 0) {
                     //moneyHalf = weight[0] * 2;
-                    moneyHour =( CurrentTime - hourOfDay - 1) * weight[0] * 2; //시간당 돈;
+                    moneyHour = (CurrentTime - hourOfDay - 1) * weight[0] * 2; //시간당 돈;
                     Half = CurrentHalf - minute + 60;
                 } else {
 
@@ -218,7 +217,7 @@ public class Calcul extends AppCompatActivity {
                 if (Half >= 30) {
                     moneyHalf = weight[0] * 2;
 
-                }else{
+                } else {
                     moneyHalf = weight[0];
                 }
 
@@ -226,7 +225,7 @@ public class Calcul extends AppCompatActivity {
 
                 useTime[0] = (useHour[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
                 NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault()); //컴마 생성
-                resultOutput.setText(String.format(" %s", moneyFormat.format( useTime[0])));      //출력
+                resultOutput.setText(String.format(" %s", moneyFormat.format(useTime[0])));      //출력
 
 
             }
@@ -251,17 +250,18 @@ public class Calcul extends AppCompatActivity {
                 //에딧택스트 변화감지
                 EditText1.addTextChangedListener(new TextWatcher() {
                     @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         String input = EditText1.getText().toString();
                         int plus;
-                        if(input.equals("")){
-                            addOnsPickUp[0]=5000;
-                        }else{
+                        if (input.equals("")) {
+                            addOnsPickUp[0] = 5000;
+                        } else {
                             plus = Integer.parseInt(input);
-                            addOnsPickUp[0]=(plus*1000)+5000;
+                            addOnsPickUp[0] = (plus * 1000) + 5000;
                         }
 
                         useTime[0] = (useHour[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
@@ -271,7 +271,8 @@ public class Calcul extends AppCompatActivity {
                     }
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                    }
                 });
 
 
@@ -288,7 +289,7 @@ public class Calcul extends AppCompatActivity {
             public void onClick(View v) {
                 if (((CheckBox) v).isChecked()) {
                     // TODO : CheckBox is checked.
-
+                    addOnsDrop[0] = 5000;
                     EditText2.setEnabled(true);
                     EditText2.setHint("추가 거리");
                 } else {
@@ -301,18 +302,19 @@ public class Calcul extends AppCompatActivity {
 
                 EditText2.addTextChangedListener(new TextWatcher() {
                     @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         String input = EditText2.getText().toString();
                         int plus;
-                        if(input.equals("")){
+                        if (input.equals("")) {
 
-                            addOnsDrop[0]=5000;
-                        }else{
+                            addOnsDrop[0] = 5000;
+                        } else {
                             plus = Integer.parseInt(input);
-                            addOnsDrop[0]=(plus*1000)+5000;
+                            addOnsDrop[0] = (plus * 1000) + 5000;
 
                         }
 
@@ -323,7 +325,8 @@ public class Calcul extends AppCompatActivity {
                     }
 
                     @Override
-                    public void afterTextChanged(Editable s) {}
+                    public void afterTextChanged(Editable s) {
+                    }
                 });
 
                 useTime[0] = (useHour[0] + addOnsPickUp[0] + addOnsDrop[0] + addOnShower[0]);
@@ -358,12 +361,12 @@ public class Calcul extends AppCompatActivity {
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         String input = EditText3.getText().toString();
                         int plus;
-                        if(input.equals("")){
+                        if (input.equals("")) {
 
-                            addOnShower[0]=15000;
-                        }else{
+                            addOnShower[0] = 15000;
+                        } else {
                             plus = Integer.parseInt(input);
-                            addOnShower[0]=plus;
+                            addOnShower[0] = plus;
 
                         }
 
@@ -387,49 +390,70 @@ public class Calcul extends AppCompatActivity {
 
     }
 
+    //동의서 전송 화면 전환
     public void messageClick(View view) {
-        Intent intent = new Intent(Calcul.this, MainActivity.class);
+        Intent intent = new Intent(Calcul_hotel.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
-    public void hotelClick(View view) {
-        Intent intent = new Intent(Calcul.this, Calcul_hotel.class);
+    //퇴실 메시지 전송 화면 전환
+    public void checkoutClick(View view) {
+        Intent intent = new Intent(Calcul_hotel.this, CheckoutActivity.class);
         startActivity(intent);
         finish();
     }
 
-
-    public void checkoutClick(View view){
-
-        Intent intent=new Intent(Calcul.this,CheckoutActivity.class);
+    //계산기 화면 전환
+    public void calculatorClick(View view) {
+        //계산기 화면으로 전환
+        Intent intent = new Intent(Calcul_hotel.this, Calcul.class);
         startActivity(intent);
         finish();
+        //계산기 화면 만들어서 계산기
     }
 
+    //3번째 자리 ,를 붙인다.
     public static String moneyFormatToWon(int inputMoney) {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         return decimalFormat.format(decimalFormat);
     }
 
+    //현재 시간
     public static String getCurrentDate_hour() {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat(format_hour, Locale.getDefault());
         return format.format(currentTime);
     }
 
+    //현재 분
     public static String getCurrentDate_half() {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat(format_half, Locale.getDefault());
         return format.format(currentTime);
     }
 
+    //현재 날짜
     public static String getCurrentDate_date() {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat(format_date, Locale.getDefault());
         return format.format(currentTime);
     }
 
+    //데이트 피커 출력
+    public void showDatePicker(View view) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(),"datePicker");
+    }
+
+    public void processDatePickerResult(int year, int month, int day){
+        String month_string = Integer.toString(month+1);
+        String day_string = Integer.toString(day);
+        String year_string = Integer.toString(year);
+        String dateMessage = (month_string + "/" + day_string + "/" + year_string);
+
+        Toast.makeText(this,"Date: "+dateMessage,Toast.LENGTH_SHORT).show();
+    }
     //실시간 시간 출력
     Runnable r = new Runnable() {
         @Override

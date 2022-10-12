@@ -25,7 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="8"
         android:background="@drawable/border_down"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -46,7 +46,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@color/gray"
                 android:gravity="center"
-                android:text="20,000원"
+                android:text="놀이방"
                 android:textAlignment="center"
                 android:textSize="30dp" />
 
@@ -101,24 +101,19 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+
                 android:text="입실 시간"
                 android:gravity="center"
                 android:textSize="30dp"
                 android:textStyle="bold" />
+            <TimePicker
+                android:layout_weight="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tp"
+                android:timePickerMode="spinner" />
 
-            <NumberPicker
-                android:id="@+id/numberPickerUseHour"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="center" />
 
-            <NumberPicker
-                android:id="@+id/numberPickerUseHalf"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_gravity="center" />
         </LinearLayout>
 
 
@@ -164,6 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="0"
+                android:maxLength="2"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -192,6 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:hint="15000"
+                android:maxLength="5"
                 android:inputType="number" />
 
 
@@ -201,14 +198,53 @@
 
 
     </LinearLayout>
-
+    <!--서비스 메뉴 선택-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/pink"
         android:orientation="horizontal">
+        <!-- 놀이방 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="놀이방"
+                android:textSize="30dp"
+                android:backgroundTint="#9079687A" />
+
+        </LinearLayout>
+
+
+        <!--호텔링-->
+        <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="호텔링"
+            android:textSize="30dp"
+            android:onClick="hotelClick"/>
+
+    </LinearLayout>
+
+    </LinearLayout>
+    <!--메뉴-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/pink"
+        android:orientation="horizontal">
+        <!--동의서 전송-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -222,7 +258,7 @@
                 android:src="@drawable/message" />
 
         </LinearLayout>
-
+        <!--계산기-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -236,16 +272,17 @@
 
 
         </LinearLayout>
-
+        <!--퇴실 전송-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="임시" />
+                android:text="임시"
+                android:onClick="checkoutClick"/>
 
         </LinearLayout>
 
