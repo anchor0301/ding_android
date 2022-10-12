@@ -402,7 +402,7 @@ public class Calcul extends AppCompatActivity {
 
     public void checkoutClick(View view){
 
-        Intent intent=new Intent(Calcul.this,CheckoutActivity.class);
+        Intent intent=new Intent(Calcul.this, DogListActivity.class);
         startActivity(intent);
         finish();
     }

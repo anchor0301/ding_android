@@ -12,22 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-public class Adapter extends RecyclerView.Adapter<ViewHolder> {
-    ArrayList<Item> items = new ArrayList<Item>();
+    ArrayList<DogListItem> items = new ArrayList<DogListItem>();
 
     Context context;
 
     int lastPosition = -1;
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View itemView = inflater.inflate(R.layout.item_layout, viewGroup, false);
-
-        context = viewGroup.getContext();
+        View itemView = inflater.inflate(R.layout.dog_item_list, viewGroup, false);
 
         return new ViewHolder(itemView);
     }
@@ -35,14 +32,8 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        if(viewHolder.getAdapterPosition() > lastPosition){
-
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_row);
-            ((ViewHolder) viewHolder).itemView.startAnimation(animation);
-
-            Item item = items.get(position);
-            viewHolder.setItem(item);
-        }
+        DogListItem item = items.get(position);
+        viewHolder.setItem(item);
     }
 
     @Override
@@ -52,7 +43,7 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
 
 
-    public void addItem(Item item){
+    public void addItem(DogListItem item){
 
         items.add(item);
     }
@@ -62,7 +53,7 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
      * @param position 등록 위치
      * @param item 아이템
      */
-    public void addItem(int position, Item item){
+    public void addItem(int position, DogListItem item){
 
         items.add(position, item);
     }
@@ -84,20 +75,20 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView title_view;
+        TextView dogName;
         TextView description;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title_view = itemView.findViewById(R.id.title_text);
-            description = itemView.findViewById(R.id.desc_text);
+            dogName = itemView.findViewById(R.id.dogName);
+            //breed = itemView.findViewById(R.id.breed);
         }
 
-        public void setItem(Item item){
+        public void setItem(DogListItem item){
 
-            title_view.setText(item.getTitle());
-            description.setText(item.getDescription());
+            dogName.setText(item.getDogName());
+            //description.setText(item.getBreed());
         }
     }
 }

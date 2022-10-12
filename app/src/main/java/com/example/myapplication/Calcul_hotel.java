@@ -399,7 +399,7 @@ public class Calcul_hotel extends AppCompatActivity {
 
     //퇴실 메시지 전송 화면 전환
     public void checkoutClick(View view) {
-        Intent intent = new Intent(Calcul_hotel.this, CheckoutActivity.class);
+        Intent intent = new Intent(Calcul_hotel.this, DogListActivity.class);
         startActivity(intent);
         finish();
     }

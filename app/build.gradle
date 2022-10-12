@@ -28,7 +28,7 @@ android {
 
 dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-
+    //리사이클뷰 스와이프
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.7'
     implementation 'com.google.code.gson:gson:2.8.6'

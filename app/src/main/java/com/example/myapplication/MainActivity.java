@@ -1,26 +1,17 @@
 package com.example.myapplication;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CallLog;
-import android.telephony.PhoneStateListener;
 import android.telephony.SmsManager;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -28,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -130,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     //퇴실 메시지 전환
     public void checkoutClick(View view){
 
-        Intent intent=new Intent(MainActivity.this,CheckoutActivity.class);
+        Intent intent=new Intent(MainActivity.this, DogListActivity.class);
         startActivity(intent);
         finish();
     }

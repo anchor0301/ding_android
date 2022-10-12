@@ -43,7 +43,7 @@
             android:name=".Calcul"
             android:exported="true" />
         <activity
-            android:name=".CheckoutActivity"
+            android:name=".DogListActivity"
             android:exported="true" />
     </application>
 
