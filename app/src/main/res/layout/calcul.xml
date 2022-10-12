@@ -46,7 +46,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@color/gray"
                 android:gravity="center"
-                android:text="20,000원"
+                android:text="놀이방"
                 android:textAlignment="center"
                 android:textSize="30dp" />
 
@@ -216,8 +216,7 @@
                 android:layout_height="match_parent"
                 android:text="놀이방"
                 android:textSize="30dp"
-                android:backgroundTint="#9079687A"
-                android:onClick="checkoutClick"/>
+                android:backgroundTint="#9079687A" />
 
         </LinearLayout>
 
@@ -233,7 +232,7 @@
             android:layout_height="match_parent"
             android:text="호텔링"
             android:textSize="30dp"
-            android:onClick="checkoutClick"/>
+            android:onClick="hotelClick"/>
 
     </LinearLayout>
 
