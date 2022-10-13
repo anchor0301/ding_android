@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Calculator;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -17,6 +17,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.myapplication.ListDog.DogListActivity;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.R;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

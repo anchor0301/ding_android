@@ -1,0 +1,25 @@
+{
+  "page_size":100,
+  "filter": {
+    "and": [
+      {
+        "property": "입실 여부",
+        "select": {
+          "equals": "입실완료"
+        }
+      },
+      {
+        "property": "서비스",
+        "select": {
+          "equals": "호텔링"
+        }
+      }
+    ]
+  },
+  "sorts": [
+    {
+      "timestamp": "last_edited_time",
+      "direction": "descending"
+    }
+  ]
+}

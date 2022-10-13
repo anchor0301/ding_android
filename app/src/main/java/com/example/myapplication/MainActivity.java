@@ -21,6 +21,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.example.myapplication.Calculator.Calcul;
+import com.example.myapplication.ListDog.DogListActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<HashMap<String, Object>> itemList;
     ListView listView;
-    SwipeRefreshLayout mysrl;
+    SwipeRefreshLayout  SwipeRefresh;
     ImageView messageImageView;
     ImageView calculatorImageView;
 
@@ -58,15 +61,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         //리스트뷰 새로고침 시 동작
-        mysrl = findViewById(R.id.content_srl);
-        mysrl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        SwipeRefresh = findViewById(R.id.content_srl);
+        SwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // 새로고침시 동작
                 getCallHistory();
 
                 // 종료
-                mysrl.setRefreshing(false);
+                SwipeRefresh.setRefreshing(false);
             }
         });
 

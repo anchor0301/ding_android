@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Calculator;
 
 
 import android.app.DatePickerDialog;
@@ -9,11 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.TextView;
+
+import com.example.myapplication.Calculator.Calcul_hotel;
 
 import java.util.Calendar;
 

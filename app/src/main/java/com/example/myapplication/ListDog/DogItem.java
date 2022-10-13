@@ -1,6 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.ListDog;
 
-public class DogListItem {
+public class DogItem {
     String DogName;
     String breed;
     String lastNum;
