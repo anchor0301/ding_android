@@ -150,8 +150,12 @@ public class DogListActivity extends FragmentActivity {
                                     }
                                 }).show();
                         break;
+
+
                 }
             }
+
+
 
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
@@ -205,23 +209,39 @@ public class DogListActivity extends FragmentActivity {
                 JSONArray dogNameTitleArray = nameProperties.getJSONArray("title");
                 JSONObject dogNameTitle = dogNameTitleArray.getJSONObject(0);
                 JSONObject dogNameText = dogNameTitle.getJSONObject("text");
-
-                String dogName = dogNameText.getString("content");//애견 이름 저장
+                //애견 이름 저장
+                String dogName = dogNameText.getString("content");
 
 
                 //애견 견종
                 JSONObject breedProperties = properties.getJSONObject("견종");
                 JSONObject breedselect = breedProperties.getJSONObject("select");
+                String dogBreed = breedselect.getString("name");  //애견 견종 저장
 
-                String dogBreed = breedselect.getString("name"); //애견 견종 저장
 
-                Log.i("run:", "애견명 : " + dogName + "\t|\t견종 : " + dogBreed);
+                //애견 성별
+                JSONObject sexProperties = properties.getJSONObject("성별");
+                JSONObject sexSelect = sexProperties.getJSONObject("select");
+                String dogSex = sexSelect.getString("name");//애견 성별 저장
+
+
+                //애견 몸무게
+                JSONObject weightProperties = properties.getJSONObject("몸무게");
+                String dogWeight = weightProperties.getString("number");//애견 성별 저장
+
+                //애견 몸무게
+                JSONObject totalDayProperties = properties.getJSONObject("예약날짜");
+                JSONObject totalDayFormula = totalDayProperties.getJSONObject("formula");//애견 성별 저장
+                String totalDay = totalDayFormula.getString("string");//애견 성별 저장
 
 
                 //샘플데이터 생성
                 DogItem item = new DogItem();
                 item.setDogName(dogName);
                 item.setBreed(dogBreed);
+                item.setSex(dogSex);
+                item.setWeight("몸무게 : "+dogWeight);
+                item.setTotalDay(totalDay);
                 item.setLastNum("213" + i);
 
                 //데이터 등록
@@ -229,6 +249,7 @@ public class DogListActivity extends FragmentActivity {
                 itemAdapter.addItem(item);
 
             }
+
 
 
         } catch (Exception e) {
@@ -267,13 +288,7 @@ public class DogListActivity extends FragmentActivity {
                         "        \"select\": {\n" +
                         "          \"equals\": \"입실완료\"\n" +
                         "        }\n" +
-                        "      },\n" +
-                        "      {\n" +
-                        "        \"property\": \"서비스\",\n" +
-                        "        \"select\": {\n" +
-                        "          \"equals\": \"호텔링\"\n" +
-                        "        }\n" +
-                        "      }            \n" +
+                        "      }          \n" +
                         "    ]\t\n" +
                         "  },\n" +
                         "  \"sorts\": [\n" +
