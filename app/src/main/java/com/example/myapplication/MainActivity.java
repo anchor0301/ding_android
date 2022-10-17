@@ -46,18 +46,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getWindow().setWindowAnimations(0);//화면 전환 애니메이션 제거
-        //전화기록 불러올수 있게
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALL_LOG}, MODE_PRIVATE);
-        //리스트 뷰에 넣을거
-        itemList = new ArrayList<HashMap<String, Object>>();
-        listView = findViewById(R.id.listView);
 
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALL_LOG}, MODE_PRIVATE);//전화기록 불러올수 있게
+
+        itemList = new ArrayList<HashMap<String, Object>>();//리스트 뷰에 넣을거
+
+        //전화 기록 불러오기
         getCallHistory();
         //밑에 메뉴
         messageImageView = findViewById(R.id.messageImage);
         calculatorImageView = findViewById(R.id.calculatorImage);
         messageImageView.setImageResource(R.drawable.message2);
-
+        listView = findViewById(R.id.listView);
 
 
         //리스트뷰 새로고침 시 동작

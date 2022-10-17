@@ -25,7 +25,7 @@
             android:name=".Calculator.DatePickerFragment"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".openingActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>

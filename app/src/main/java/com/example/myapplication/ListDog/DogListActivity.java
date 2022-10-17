@@ -61,10 +61,8 @@ public class DogListActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doglist);
-
         //리스트뷰 새로고침 시 동작
         SwipeRefresh = findViewById(R.id.content_srl);
-
 
         getWindow().setWindowAnimations(0); //화면 전환 애니메이션 제거
 
@@ -72,13 +70,10 @@ public class DogListActivity extends FragmentActivity {
         SwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 // 새로고침시 동작
                 RecyclerView();
-
                 // 종료
                 SwipeRefresh.setRefreshing(false);
-
             }
         });
 
@@ -101,9 +96,6 @@ public class DogListActivity extends FragmentActivity {
     public void RecyclerView() {
         recyclerView = findViewById(R.id.recycler_view);
 
-        ArrayList<DogItem> DogItem = new ArrayList<>();
-
-
         //아래구분선 세팅
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         // 리사이클러뷰에 레이아웃 매니저와 어댑터를 설정한다.
@@ -124,7 +116,7 @@ public class DogListActivity extends FragmentActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-                int position = viewHolder.getAdapterPosition();
+                int position = viewHolder.getBindingAdapterPosition();
 
                 switch (direction) {
 
@@ -134,10 +126,11 @@ public class DogListActivity extends FragmentActivity {
                         DogItem deleteItem = items.get(position);
 
                         //삭제 기능
+
                         items.remove(position);
                         itemAdapter.removeItem(position);
                         itemAdapter.notifyItemRemoved(position);
-
+                        itemAdapter.notifyDataSetChanged();
                         //복구 기능
                         Snackbar.make(recyclerView, deleteItem.getDogName(), Snackbar.LENGTH_LONG)
                                 .setAction("복구", new View.OnClickListener() {
@@ -234,6 +227,13 @@ public class DogListActivity extends FragmentActivity {
                 JSONObject totalDayFormula = totalDayProperties.getJSONObject("formula");//애견 성별 저장
                 String totalDay = totalDayFormula.getString("string");//애견 성별 저장
 
+                //점심 유무
+                JSONObject lunchProperties = properties.getJSONObject("점심");
+                Boolean lunch = Boolean.parseBoolean(lunchProperties.getString("checkbox"));//점심 먹었니?
+
+                //저녁 유무
+                JSONObject dinnerProperties = properties.getJSONObject("저녁");
+                Boolean dinner = Boolean.parseBoolean(dinnerProperties.getString("checkbox"));//저녁 먹었니?
 
                 //샘플데이터 생성
                 DogItem item = new DogItem();
@@ -242,6 +242,8 @@ public class DogListActivity extends FragmentActivity {
                 item.setSex(dogSex);
                 item.setWeight("몸무게 : "+dogWeight);
                 item.setTotalDay(totalDay);
+                item.setLunchBoxSelected(lunch);
+                item.setDinnerBoxSelected(dinner);
                 item.setLastNum("213" + i);
 
                 //데이터 등록
