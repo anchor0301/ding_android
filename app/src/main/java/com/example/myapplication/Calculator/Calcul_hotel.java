@@ -33,6 +33,7 @@ public class Calcul_hotel extends AppCompatActivity {
 
     ImageView messageImageView;
     ImageView calculatorImageView;
+    ImageView hotelImageView;
     NumberPicker numberPickerWeight;
     TextView resultOutput;
     TextView textUseTime;
@@ -130,6 +131,8 @@ public class Calcul_hotel extends AppCompatActivity {
         messageImageView.setImageResource(R.drawable.message);
         calculatorImageView = findViewById(R.id.calculatorImage);
         calculatorImageView.setImageResource(R.drawable.calculator2);
+        hotelImageView = findViewById(R.id.hotelImageView);
+        hotelImageView.setImageResource(R.drawable.hotel);
         currentTime = (TextView) findViewById(R.id.currentTime);
         resultOutput = (TextView) findViewById(R.id.resultOutput);
         textUseTime = (TextView) findViewById(R.id.useTime);
@@ -403,6 +406,7 @@ public class Calcul_hotel extends AppCompatActivity {
 
     //퇴실 메시지 전송 화면 전환
     public void checkoutClick(View view) {
+
         Intent intent = new Intent(Calcul_hotel.this, DogListActivity.class);
         startActivity(intent);
         finish();

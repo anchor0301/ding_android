@@ -32,6 +32,7 @@ public class Calcul extends AppCompatActivity {
 
     ImageView messageImageView;
     ImageView calculatorImageView;
+    ImageView hotelImageView;
     NumberPicker numberPickerWeight;
     TextView resultOutput;
     TextView textUseTime;
@@ -131,6 +132,8 @@ public class Calcul extends AppCompatActivity {
         messageImageView.setImageResource(R.drawable.message);
         calculatorImageView = findViewById(R.id.calculatorImage);
         calculatorImageView.setImageResource(R.drawable.calculator2);
+
+        hotelImageView = findViewById(R.id.hotelImageView);
         currentTime = (TextView) findViewById(R.id.currentTime);
         resultOutput = (TextView) findViewById(R.id.resultOutput);
         textUseTime = (TextView) findViewById(R.id.useTime);
@@ -405,6 +408,7 @@ public class Calcul extends AppCompatActivity {
 
 
     public void checkoutClick(View view){
+
 
         Intent intent=new Intent(Calcul.this, DogListActivity.class);
         startActivity(intent);

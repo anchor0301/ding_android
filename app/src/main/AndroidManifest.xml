@@ -8,7 +8,8 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -20,10 +21,18 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".Calculator.DatePickerFragment"
-            android:exported="false" />
+            android:exported="true"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".openingActivity"
             android:exported="true"
@@ -37,10 +46,6 @@
         <activity
             android:name=".Calculator.Calcul_hotel"
             android:exported="true" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Calculator.Calcul"
             android:exported="true" />

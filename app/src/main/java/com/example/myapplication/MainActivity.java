@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout  SwipeRefresh;
     ImageView messageImageView;
     ImageView calculatorImageView;
+    ImageView hotelImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +51,15 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALL_LOG}, MODE_PRIVATE);//전화기록 불러올수 있게
 
         itemList = new ArrayList<HashMap<String, Object>>();//리스트 뷰에 넣을거
+        listView = findViewById(R.id.listView);
 
-        //전화 기록 불러오기
         getCallHistory();
         //밑에 메뉴
         messageImageView = findViewById(R.id.messageImage);
         calculatorImageView = findViewById(R.id.calculatorImage);
+        hotelImageView = findViewById(R.id.hotelImageView);
         messageImageView.setImageResource(R.drawable.message2);
-        listView = findViewById(R.id.listView);
+
 
 
         //리스트뷰 새로고침 시 동작

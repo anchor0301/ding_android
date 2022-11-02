@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/dog2" />
+            android:src="@drawable/dog2"/>
     </LinearLayout>
 
     <ScrollView
@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
-                    android:background="@color/gray"
+                    android:background="@drawable/button_round"
                     android:gravity="center"
                     android:text="호텔링"
                     android:textAlignment="center"
@@ -309,11 +309,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <Button
+
+            <ImageView
+                android:id="@+id/hotelImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:onClick="checkoutClick"
-                android:text="임시" />
+                android:src="@drawable/hotel" />
 
         </LinearLayout>
 

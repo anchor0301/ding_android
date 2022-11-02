@@ -1,5 +1,10 @@
 package com.example.myapplication.ListDog;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -36,7 +41,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import okhttp3.Call;
@@ -53,9 +61,8 @@ public class DogListActivity extends FragmentActivity {
 
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
-    SwipeRefreshLayout  SwipeRefresh;
+    SwipeRefreshLayout SwipeRefresh;
     ArrayList<DogItem> items = new ArrayList<DogItem>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,9 +111,8 @@ public class DogListActivity extends FragmentActivity {
 
         itemAdapter = new ItemAdapter();
         recyclerView.setAdapter(itemAdapter);
-       
 
-
+        //왼쪽으로 스와이프시
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -144,10 +150,8 @@ public class DogListActivity extends FragmentActivity {
                                 }).show();
                         break;
 
-
                 }
             }
-
 
 
             @Override
@@ -166,6 +170,60 @@ public class DogListActivity extends FragmentActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
+        //오른쪽으로 스와이프시
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getBindingAdapterPosition();
+
+                //삭제할 아이템 담아두기
+                DogItem deleteItem = items.get(position);
+
+                Log.d(TAG, "onSwiped22222: " +deleteItem.getDogName());
+                Toast.makeText(getBaseContext(), deleteItem.getDogName(), Toast.LENGTH_SHORT).show();
+            }
+
+
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder,
+                        dX, dY, actionState, isCurrentlyActive)
+                        .addSwipeRightBackgroundColor(Color.BLUE)
+                        .addSwipeRightActionIcon(R.drawable.camera)
+                        .addSwipeRightLabel("사진전송")
+                        .setSwipeRightLabelColor(Color.WHITE)
+                        .create()
+                        .decorate();
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+
+            @Override
+            public float getSwipeEscapeVelocity(float defaultValue) {
+                return defaultValue *20;
+            }
+
+            @Override
+            public float getSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder) {
+                return 2f;
+            }
+
+            @Override
+            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+
+                //오른쪽으로 넘기면 실행
+
+                Toast.makeText(getBaseContext(), "카메라 어플 실행", Toast.LENGTH_SHORT).show();
+                super.clearView(recyclerView, viewHolder);
+            }
+        }).attachToRecyclerView(recyclerView);
+
 
         //thread 생성
         callPOST callPost = new callPOST();
@@ -174,27 +232,21 @@ public class DogListActivity extends FragmentActivity {
 
         try {
             callPost.join();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            Log.d( "RecyclerView: ","종료");
+        } finally {
+            Log.d("RecyclerView: ", "종료");
             callPost.interrupt();
         }
 
 
         try {
             //callPost 스레드에서 json결과값 가져오기
-            String jsonData = callPost.getResult();
+            for (int i = 0; i < callPost.getJsonArry().length(); i++) {
+                JSONObject dogObject = callPost.getJsonArry().getJSONObject(i);
 
-
-            JSONObject jsonObject = new JSONObject(jsonData);
-
-            Log.i("Response1 : ", jsonObject.getString("results"));
-
-            JSONArray dogsInfoArray = jsonObject.getJSONArray("results");
-
-            for (int i = 0; i < dogsInfoArray.length(); i++) {
-                JSONObject dogObject = dogsInfoArray.getJSONObject(i);
+                //pageId저장
+                String pageID = dogObject.getString("id");  //애견 견종 저장
                 JSONObject properties = dogObject.getJSONObject("properties");
 
                 //애견 이름
@@ -217,6 +269,12 @@ public class DogListActivity extends FragmentActivity {
                 JSONObject sexSelect = sexProperties.getJSONObject("select");
                 String dogSex = sexSelect.getString("name");//애견 성별 저장
 
+                //서비스
+                JSONObject serviceProperties = properties.getJSONObject("서비스");
+                JSONObject serviceSelect = serviceProperties.getJSONObject("select");
+                String service = serviceSelect.getString("name");//애견 성별 저장
+
+
 
                 //애견 몸무게
                 JSONObject weightProperties = properties.getJSONObject("몸무게");
@@ -235,23 +293,25 @@ public class DogListActivity extends FragmentActivity {
                 JSONObject dinnerProperties = properties.getJSONObject("저녁");
                 Boolean dinner = Boolean.parseBoolean(dinnerProperties.getString("checkbox"));//저녁 먹었니?
 
+
+
                 //샘플데이터 생성
                 DogItem item = new DogItem();
                 item.setDogName(dogName);
                 item.setBreed(dogBreed);
                 item.setSex(dogSex);
-                item.setWeight("몸무게 : "+dogWeight);
+                item.setWeight("몸무게 : " + dogWeight);
                 item.setTotalDay(totalDay);
                 item.setLunchBoxSelected(lunch);
                 item.setDinnerBoxSelected(dinner);
-                item.setLastNum("213" + i);
+                item.setService(service);
+                item.setPageID(pageID);
 
                 //데이터 등록
                 items.add(item);
                 itemAdapter.addItem(item);
 
             }
-
 
 
         } catch (Exception e) {
@@ -266,7 +326,7 @@ public class DogListActivity extends FragmentActivity {
 
 
     public class callPOST extends Thread {
-        private String Result;
+        private JSONArray Result;
 
         @Override
         public void run() {
@@ -277,9 +337,6 @@ public class DogListActivity extends FragmentActivity {
                 //URL
                 String strURL = "https://api.notion.com/v1/databases/5ae1d1a61f5f4efe9f9557d62b9adf5e/query";
                 //parameter를 JSON object로 전달합니다
-
-                //TODO 주석제거
-                //String strBody = "{\"parameter\":\"NA\"}";
 
                 String strBody = "{\n" +
                         "  \"page_size\":100,\n" +
@@ -294,7 +351,9 @@ public class DogListActivity extends FragmentActivity {
                         "    ]\t\n" +
                         "  },\n" +
                         "  \"sorts\": [\n" +
-                        "    {\n" +
+
+                        "      {\"property\": \"서비스\",\n" +
+                        "      \"direction\": \"ascending\"\n},{" +
                         "      \"timestamp\": \"last_edited_time\",\n" +
                         "      \"direction\": \"descending\"\n" +
                         "    }\n" +
@@ -314,11 +373,11 @@ public class DogListActivity extends FragmentActivity {
                 //request를 요청하고 그 결과를 response 객체로 응답을 받음.
                 Response response = client.newCall(request).execute();
                 //응답처리
-                Result = response.body().string();
 
-                //Log.i("request1 : ", request.toString());
-                Log.i("Response1 : ", Result);
 
+                JSONObject jsonObject = new JSONObject(response.body().string());
+
+                Result = jsonObject.getJSONArray("results");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -326,12 +385,32 @@ public class DogListActivity extends FragmentActivity {
 
         }
 
-        public String getResult() {
+        public JSONArray getJsonArry() {
             return this.Result;
         }
 
     }
-
+//    //public static void resetAlarm(Context context){
+//        AlarmManager resetAlarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+//        //Intent resetIntent = new Intent(context, 로직 클래스);
+//        //PendingIntent resetSender = PendingIntent.getBroadcast(context, 0, resetIntent, 0);
+//
+//        // 자정 시간
+//        Calendar resetCal = Calendar.getInstance();
+//        resetCal.setTimeInMillis(System.currentTimeMillis());
+//        resetCal.set(Calendar.HOUR_OF_DAY, 0);
+//        resetCal.set(Calendar.MINUTE,0);
+//        resetCal.set(Calendar.SECOND, 0);
+//
+//        //다음날 0시에 맞추기 위해 24시간을 뜻하는 상수인 AlarmManager.INTERVAL_DAY를 더해줌.
+//        resetAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, resetCal.getTimeInMillis()
+//                +AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, resetSender);
+//
+//        SimpleDateFormat format = new SimpleDateFormat("MM/dd kk:mm:ss");
+//        String setResetTime = format.format(new Date(resetCal.getTimeInMillis()+AlarmManager.INTERVAL_DAY));
+//
+//        Log.d("resetAlarm", "ResetHour : " + setResetTime);
+//    }
 }
 
 

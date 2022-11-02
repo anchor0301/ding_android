@@ -1,13 +1,13 @@
 package com.example.myapplication.ListDog;
 
 public class DogItem {
-    String DogName; //애견 이름
-    String breed;   //견종
-    String lastNum; //전화번호
-    String sex;     //성별
-    String weight;  //몸무게
-    String pageID;  //몸무게
-    String totalDay;//총 예약 기간
+    private String DogName; //애견 이름
+    private String breed;   //견종
+    private String service; //전화번호
+    private String sex;     //성별
+    private String weight;  //몸무게
+    private String pageID;  //해당 페이지
+    private String totalDay;//총 예약 기간
     boolean isLunchBoxSelected;
     boolean isDinnerBoxSelected;
 
@@ -77,11 +77,11 @@ public class DogItem {
         this.breed = breed;
     }
 
-    public String getLastNum() {
-        return lastNum;
+    public String getService() {
+        return service;
     }
 
-    public void setLastNum(String lastNum) {
-        this.lastNum = lastNum;
+    public void setService(String service) {
+        this.service = service;
     }
 }

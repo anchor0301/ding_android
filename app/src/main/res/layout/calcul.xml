@@ -44,9 +44,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
-                android:background="@color/gray"
                 android:gravity="center"
                 android:text="놀이방"
+                android:background="@drawable/button_round"
                 android:textAlignment="center"
                 android:textSize="30dp" />
 
@@ -278,11 +278,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <Button
+            <ImageView
+                android:id="@+id/hotelImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="임시"
-                android:onClick="checkoutClick"/>
+                android:onClick="checkoutClick"
+                android:src="@drawable/hotel" />
 
         </LinearLayout>
 

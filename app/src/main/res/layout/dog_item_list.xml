@@ -24,24 +24,26 @@
                 android:layout_weight="2"
                 android:gravity="center_vertical"
                 android:text="애견 이름"
-                android:textSize="20dp" />
+                android:textSize="21dp"
+                android:textStyle="bold"/>
 
             <CheckBox
                 android:id="@+id/lunchBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_weight="1" />
+                android:layout_weight="8" />
 
             <CheckBox
                 android:id="@+id/dinnerBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_weight="1" />
+                android:layout_weight="8" />
         </LinearLayout>
 
         <TextView
+            android:layout_marginLeft="15dp"
             android:id="@+id/totalDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,6 +59,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:layout_marginLeft="15dp"
                 android:id="@+id/linearlayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +91,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
             <TextView
                 android:id="@+id/breed"
                 android:layout_width="wrap_content"

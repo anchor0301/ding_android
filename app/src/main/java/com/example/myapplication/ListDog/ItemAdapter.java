@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,7 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     ArrayList<DogItem> items = new ArrayList<>();
@@ -26,7 +36,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     // 직전에 클릭됐던 Item의 position
     public int prePosition = -1;
     Context context;
-
+    String pageID = null;
+    Boolean bool = null;
+    String food = null;
 
     @NonNull
     @Override
@@ -60,9 +72,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             item.setLunchBoxSelected(isChecked);
         });
 
-        // 체크박스의 상태값을 알기 위해 리스너 부착
         holder.dinnerBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // 여기의 item은 final 키워드를 붙인 모델 클래스의 객체와 동일하다
             item.setDinnerBoxSelected(isChecked);
         });
 
@@ -103,7 +113,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
 
-
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView dogName;
         public TextView breed;
@@ -139,7 +148,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
             dogName.setText(data.getDogName());
             breed.setText(data.getBreed());
-            lastNum.setText(data.getLastNum());
+            lastNum.setText(data.getService());
             dogSex.setText(data.getSex());
             weight.setText(data.getWeight());
             totalDay.setText(data.getTotalDay());
@@ -148,6 +157,36 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
             linearlayout.setOnClickListener(this);
             changeVisibility(selectedItems.get(position));
+
+            lunchBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Log.d("TAG", "런치박스 클릭함: " + isChecked);
+                    food = "점심";
+                    pageID = data.getPageID();
+                    bool = isChecked;
+                    //thread 생성
+                    callPATCH callPost = new callPATCH();
+                    //thread 실행
+                    callPost.start();
+                    data.setLunchBoxSelected(isChecked);
+                }
+            });
+
+            dinnerBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Log.d("TAG", "디너박스 클릭함: " + isChecked);
+                    food = "저녁";
+                    pageID = data.getPageID();
+                    bool = isChecked;
+                    //thread 생성
+                    callPATCH callPost = new callPATCH();
+                    //thread 실행
+                    callPost.start();
+                    data.setDinnerBoxSelected(isChecked);
+                }
+            });
 
         }
 
@@ -165,15 +204,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             // 해당 포지션의 변화를 알림
             if (prePosition != -1) {
                 notifyItemChanged(prePosition);
-                Log.d("errorS", "onClick: " + prePosition + "닫힘");
             }
             notifyItemChanged(position);
-            Log.d("errorS", "onClick: " + position + "열림");
 
             // 클릭된 position 저장
             prePosition = position;
 
-            Log.d("errorS", "onClick: " + position + "- > "+prePosition+"\n\n");
         }
 
         /**
@@ -215,5 +251,52 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     }
 
+    public class callPATCH extends Thread {
+        @Override
+        public void run() {
 
+            try {
+                String address = "https://api.notion.com/v1/pages/";
+                //인스턴스를 생성합니다.
+                OkHttpClient client = new OkHttpClient();
+                //URL
+                String strURL = address + pageID;
+
+                //parameter를 JSON object로 전달합니다
+                String strBody =
+                        "{\n" +
+                                "\"properties\":" +
+                                "   {\n" +
+                                "       \"" + food + "\":" +
+                                "    {\n" +
+                                "               \"checkbox\": " + bool +
+                                "       }" +
+                                "}" +
+                                "}";
+
+                bool = null;
+                food = null;
+                pageID = null;
+                //POST요청을 위한 build작업
+                Request.Builder builder = new Request.Builder()
+                        .url(strURL).patch(RequestBody.create(MediaType.parse("application/json"), strBody));
+                //json을 주고받는 경우, 헤더에 추가
+                builder.addHeader("Content-type", "application/json");
+                builder.addHeader("Authorization", "Bearer secret_gNvpkrPcYOkO3RmvNdBB5RXSvwFS2B0ZHLGubmWDBx1");
+                builder.addHeader("Notion-Version", "2022-06-28");
+                //request 객체를 생성
+                Request request = builder.build();
+                //request를 요청하고 그 결과를 response 객체로 응답을 받음.
+                Response response = client.newCall(request).execute();
+                //응답처리
+                Log.d("TAG", "run: " + response);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
 }
