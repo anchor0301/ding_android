@@ -10,8 +10,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Movie;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,64 +27,54 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.myapplication.Calculator.Calcul;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.loopj.android.http.AsyncHttpClient;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class DogListActivity extends FragmentActivity {
 
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
-    SwipeRefreshLayout SwipeRefresh;
+
+
+    String pageID = null;
+    String state = null;
+    Boolean isWork =false;
+    ShimmerFrameLayout shimmerFrameLayout;
     ArrayList<DogItem> items = new ArrayList<DogItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doglist);
-        //리스트뷰 새로고침 시 동작
-        SwipeRefresh = findViewById(R.id.content_srl);
+
+        shimmerFrameLayout = findViewById(R.id.shimmer_view_container);
+        recyclerView =findViewById(R.id.recycler_view);
+
+        //아래구분선 세팅
+        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+        recyclerView.setVisibility(View.INVISIBLE);
+        shimmerFrameLayout.startShimmer();
+
+        new Thread(shimmer).start();
+
+        new Thread(r).start();
+
+        //RecyclerView();
 
         getWindow().setWindowAnimations(0); //화면 전환 애니메이션 제거
 
-        RecyclerView();
-        SwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // 새로고침시 동작
-                RecyclerView();
-                // 종료
-                SwipeRefresh.setRefreshing(false);
-            }
-        });
 
 
     }
@@ -100,11 +92,16 @@ public class DogListActivity extends FragmentActivity {
         finish();
     }
 
-    public void RecyclerView() {
-        recyclerView = findViewById(R.id.recycler_view);
 
-        //아래구분선 세팅
-        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+    public void checkoutClick(View view){
+        Toast.makeText(this,     "새로고침", Toast.LENGTH_SHORT).show();
+        if(!isWork) {
+            isWork=true;
+            new Thread(r).start();
+        }
+    }
+    public void RecyclerView() {
+
         // 리사이클러뷰에 레이아웃 매니저와 어댑터를 설정한다.
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false); //레이아웃매니저 생성
         recyclerView.setLayoutManager(layoutManager); ////만든 레이아웃매니저 객체를(설정을) 리사이클러 뷰에 설정해줌
@@ -132,6 +129,23 @@ public class DogListActivity extends FragmentActivity {
                         DogItem deleteItem = items.get(position);
 
                         //삭제 기능
+                        pageID = deleteItem.getPageID();
+                        state = "퇴실";
+
+                        //thread 생성
+                        exitDog exitDog = new exitDog();
+                        //thread 실행
+                        exitDog.start();
+
+                        try {
+                            exitDog.join();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            Log.d("RecyclerView: ", "종료");
+                            exitDog.interrupt();
+                        }
+
 
                         items.remove(position);
                         itemAdapter.removeItem(position);
@@ -142,6 +156,15 @@ public class DogListActivity extends FragmentActivity {
                                 .setAction("복구", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
+
+                                        //삭제 기능
+                                        pageID = deleteItem.getPageID();
+                                        state = "입실완료";
+
+                                        //thread 생성
+                                        exitDog exitDog = new exitDog();
+                                        //thread 실행
+                                        exitDog.start();
 
                                         items.add(position, deleteItem);
                                         itemAdapter.addItem(position, deleteItem);
@@ -235,7 +258,7 @@ public class DogListActivity extends FragmentActivity {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Log.d("RecyclerView: ", "종료");
+
             callPost.interrupt();
         }
 
@@ -322,6 +345,8 @@ public class DogListActivity extends FragmentActivity {
 
         //애니메이션 실행
         recyclerView.startLayoutAnimation();
+
+        isWork=false;
     }
 
 
@@ -390,6 +415,104 @@ public class DogListActivity extends FragmentActivity {
         }
 
     }
+
+    Runnable r = new Runnable() {
+        @Override
+        public void run() {
+
+                try {
+
+
+                } catch (Exception e) {
+
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        RecyclerView();
+                    }
+                });
+        }
+    };
+
+
+
+    Runnable shimmer = new Runnable() {
+        @Override
+        public void run() {
+
+            try {
+
+                Thread.sleep(2000);
+            } catch (Exception e) {
+
+            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    shimmerFrameLayout.stopShimmer();
+                    shimmerFrameLayout.removeAllViews();
+
+                }
+            });
+        }
+    };
+
+    public class exitDog extends Thread {
+        @Override
+        public void run() {
+
+            try {
+
+                String address = "https://api.notion.com/v1/pages/";
+                //인스턴스를 생성합니다.
+                OkHttpClient client = new OkHttpClient();
+                //URL
+                String strURL = address + pageID;
+                String color=null;
+                if(state.equals("퇴실")){
+                     color="gray";
+                }else{
+                    color="green";
+                }
+                //parameter를 JSON object로 전달합니다
+                String strBody =
+                        "{\n" +
+                                "\"properties\":{\n" +
+                                "       \"입실 여부\":{\n" +
+                                "               \"select\":{" +
+                                "                   \"name\":\""+state+"\"," +
+                                "                   \"color\":\""+color+"\"}" +
+                                " }" +
+                                "}" +
+                                "}";
+
+                pageID = null;
+                state = null;
+                //POST요청을 위한 build작업
+                Request.Builder builder = new Request.Builder()
+                        .url(strURL).patch(RequestBody.create(MediaType.parse("application/json"), strBody));
+                //json을 주고받는 경우, 헤더에 추가
+                builder.addHeader("Content-type", "application/json");
+                builder.addHeader("Authorization", "Bearer secret_gNvpkrPcYOkO3RmvNdBB5RXSvwFS2B0ZHLGubmWDBx1");
+                builder.addHeader("Notion-Version", "2022-06-28");
+                //request 객체를 생성
+                Request request = builder.build();
+                //request를 요청하고 그 결과를 response 객체로 응답을 받음.
+                Response response = client.newCall(request).execute();
+                //응답처리
+                Log.d("TAG", "run: " + response);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
 //    //public static void resetAlarm(Context context){
 //        AlarmManager resetAlarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 //        //Intent resetIntent = new Intent(context, 로직 클래스);
