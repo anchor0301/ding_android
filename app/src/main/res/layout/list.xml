@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:text="전화번호"
         android:textSize="20dp" />
     <!--전화온 시간-->
     <TextView
@@ -16,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
+        android:text="전화 온 시간"
         android:textColor="@color/gray"
         android:textSize="15dp" />
 

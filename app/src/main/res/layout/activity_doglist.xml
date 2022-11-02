@@ -65,24 +65,29 @@
         android:layout_height="2dp"
         android:background="#cccccc"
         android:backgroundTint="@color/gray"/>
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/content_srl"
+
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_item_shimmer" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_weight="8.5">
+        android:layout_weight="8"
+        tools:listitem="@layout/dog_item_list"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     <LinearLayout
@@ -131,6 +136,7 @@
                 android:id="@+id/hotelImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:onClick="checkoutClick"
                 android:src="@drawable/hotel2" />
 
         </LinearLayout>
