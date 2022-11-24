@@ -31,4 +31,5 @@ public class openingActivity extends AppCompatActivity {
         }, 500); // sec초 정도 딜레이를 준 후 시작
     }
 
+
 }

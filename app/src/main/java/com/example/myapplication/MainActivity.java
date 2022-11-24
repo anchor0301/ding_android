@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -23,6 +24,8 @@ import android.widget.Toast;
 
 import com.example.myapplication.Calculator.Calcul;
 import com.example.myapplication.ListDog.DogListActivity;
+import com.example.myapplication.Tabs.PagerAdapter;
+import com.google.android.material.tabs.TabLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
         getWindow().setWindowAnimations(0);//화면 전환 애니메이션 제거
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALL_LOG}, MODE_PRIVATE);//전화기록 불러올수 있게
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALL_LOG, Manifest.permission.SEND_SMS,
+                Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.INTERNET,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);//전화기록 불러올수 있게
 
         itemList = new ArrayList<HashMap<String, Object>>();//리스트 뷰에 넣을거
         listView = findViewById(R.id.listView);
@@ -73,6 +78,45 @@ public class MainActivity extends AppCompatActivity {
                 // 종료
                 SwipeRefresh.setRefreshing(false);
             }
+        });
+
+        androidx.appcompat.widget.Toolbar toolbar =
+                findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+
+
+        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_fragment1));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_fragment2));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_fragment3));
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.bringToFront();
+
+        final ViewPager viewPager = findViewById(R.id.pager);
+
+        final PagerAdapter adapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+
+        viewPager.setAdapter(adapter);
+
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+            @Override
+            public void onTabSelected(TabLayout.Tab tab){
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab){
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab){
+            }
+
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//리스트 클릭 이벤트
