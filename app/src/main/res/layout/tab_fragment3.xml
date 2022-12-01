@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:background="@android:color/transparent"
+    android:onClick="checkoutClick"
     tools:context=".TabFragment">
 
     <LinearLayout
@@ -16,7 +17,7 @@
         <!-- TODO: Update blank fragment layout -->
 
         <ImageView
-            android:onClick="checkoutClick"
+
             android:id="@+id/hotelImageView"
             android:layout_width="122dp"
             android:layout_height="53dp"

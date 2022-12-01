@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.CallLog;
 import android.telephony.SmsManager;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,9 +41,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<HashMap<String, Object>> itemList;
     ListView listView;
     SwipeRefreshLayout  SwipeRefresh;
-    ImageView messageImageView;
-    ImageView calculatorImageView;
-    ImageView hotelImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         getCallHistory();
         //밑에 메뉴
-        messageImageView = findViewById(R.id.messageImage);
-        calculatorImageView = findViewById(R.id.calculatorImage);
-        hotelImageView = findViewById(R.id.hotelImageView);
-        messageImageView.setImageResource(R.drawable.message2);
+
 
 
 
@@ -94,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.bringToFront();
-
         final ViewPager viewPager = findViewById(R.id.pager);
 
         final PagerAdapter adapter = new PagerAdapter
@@ -107,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
             @Override
             public void onTabSelected(TabLayout.Tab tab){
+
             }
 
             @Override

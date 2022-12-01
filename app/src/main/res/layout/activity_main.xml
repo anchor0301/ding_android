@@ -5,31 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context=".MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:layout_weight="4"
+        android:gravity="top"
+        android:orientation="vertical">
+
         <include
+
             android:id="@id/toolbar"
             layout="@layout/toolbar"
             android:layout_width="match_parent"
             android:layout_height="110dp" />
 
-    <ImageView
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:src="@drawable/dingguldanggul" />
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/dingguldanggul" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="640dp"
+        android:layout_height="match_parent"
         android:layout_weight="4"
         android:gravity="bottom"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="235dp"
+            android:layout_height="296dp"
             android:layout_weight="1"
             android:background="@drawable/border_down"
             android:gravity="bottom"
@@ -81,31 +91,38 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="109dp"
+            android:layout_weight="4"
+            android:gravity="bottom"
+            android:orientation="vertical">
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:background="@android:color/transparent"
+                android:layout_alignLeft="@id/tab_layout"
+                android:layout_alignEnd="@id/tab_layout"
+                android:layout_alignBottom="@id/tab_layout"
+                android:layout_alignParentEnd="true"
+
+
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:tabRippleColor="@android:color/transparent" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+
+                android:layout_width="match_parent"
+                android:layout_height="89dp"
+                android:layout_alignBottom="@+id/tab_layout"
+                android:layout_marginTop="0dp"
+                android:background="#FFCCCC" />
+        </RelativeLayout>
     </LinearLayout>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="95dp"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignLeft="@id/tab_layout"
-        android:layout_alignEnd="@id/tab_layout"
-        android:layout_alignBottom="@id/tab_layout"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="-13dp"
-        android:layout_marginTop="526dp"
-        android:background="@android:color/transparent"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:tabRippleColor="@null" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="89dp"
-        android:layout_alignBottom="@+id/tab_layout"
-        android:layout_marginTop="0dp"
-        android:background="#FFCCCC" />
 
 </RelativeLayout>
