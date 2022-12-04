@@ -7,18 +7,27 @@
     tools:context=".Calculator.Calcul_hotel">
 
     <!-- 상단 헤더 -->
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/pink"
-        android:orientation="horizontal">
+        android:layout_height="80dp"
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <include
+
+            android:id="@id/toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/dog2"/>
-    </LinearLayout>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/dingguldanggul" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -273,9 +282,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/pink"
+        android:background="#FFCCCC"
         android:orientation="horizontal">
-        <!--동의서 전송-->
+
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -285,11 +295,10 @@
                 android:id="@+id/messageImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="messageClick"
-                android:src="@drawable/message" />
+                android:src="@drawable/email" />
 
         </LinearLayout>
-        <!--계산기-->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -299,24 +308,28 @@
                 android:id="@+id/calculatorImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/calculator" />
+                android:onClick="calculatorClick"
+                android:src="@drawable/cal" />
 
 
         </LinearLayout>
-        <!--퇴실 전송-->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="bottom|center">
 
 
             <ImageView
-                android:id="@+id/hotelImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
 
+                android:id="@+id/hotelImageView"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:onClick="checkoutClick"
-                android:src="@drawable/hotel" />
+                android:src="@drawable/pet_bed"
+                android:scaleType="fitStart"
+                android:layout_marginBottom="3dp"/>
 
         </LinearLayout>
 

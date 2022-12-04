@@ -9,7 +9,9 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.telephony.SmsManager;
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     SwipeRefreshLayout  SwipeRefresh;
 
+    ImageView messageImage;
+    ImageView calculatorImage;
+    ImageView hotelImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +66,14 @@ public class MainActivity extends AppCompatActivity {
         getCallHistory();
         //밑에 메뉴
 
+        //이미지 색 변경
+        messageImage = findViewById(R.id.messageImage);
+        calculatorImage = findViewById(R.id.calculatorImage);
+        hotelImageView = findViewById(R.id.hotelImageView);
 
-
+        messageImage.setImageTintList(ColorStateList.valueOf(Color.parseColor("#1C1C1C")));
+        calculatorImage.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+        hotelImageView.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
 
         //리스트뷰 새로고침 시 동작
         SwipeRefresh = findViewById(R.id.content_srl);
@@ -76,44 +88,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        androidx.appcompat.widget.Toolbar toolbar =
-                findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-
-
-        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_fragment1));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_fragment2));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_fragment3));
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.bringToFront();
-        final ViewPager viewPager = findViewById(R.id.pager);
-
-        final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-
-        viewPager.setAdapter(adapter);
-
-
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
-            @Override
-            public void onTabSelected(TabLayout.Tab tab){
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab){
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab){
-            }
-
-        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//리스트 클릭 이벤트
             @Override

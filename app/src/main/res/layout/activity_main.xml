@@ -10,8 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="109dp"
-        android:layout_weight="4"
+        android:layout_height="80dp"
+
         android:gravity="top"
         android:orientation="vertical">
 
@@ -20,11 +20,11 @@
             android:id="@id/toolbar"
             layout="@layout/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="110dp" />
+            android:layout_height="80dp" />
 
         <ImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:src="@drawable/dingguldanggul" />
@@ -39,7 +39,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="296dp"
+            android:layout_height="248dp"
             android:layout_weight="1"
             android:background="@drawable/border_down"
             android:gravity="bottom"
@@ -51,7 +51,8 @@
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="수동 입력"
-                android:textSize="20dp" />
+                android:fontFamily="@font/human_bumsok"
+                android:textSize="25dp" />
 
             <EditText
                 android:id="@+id/editText"
@@ -68,9 +69,10 @@
                 android:layout_weight="2"
                 android:background="@drawable/radius"
                 android:onClick="messageSend"
+                android:fontFamily="@font/human_bumsok"
                 android:text="전송"
 
-                android:textSize="18dp" />
+                android:textSize="20dp" />
         </LinearLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -91,37 +93,62 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="109dp"
-            android:layout_weight="4"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="95dp"
-                android:background="@android:color/transparent"
-                android:layout_alignLeft="@id/tab_layout"
-                android:layout_alignEnd="@id/tab_layout"
-                android:layout_alignBottom="@id/tab_layout"
-                android:layout_alignParentEnd="true"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FFCCCC"
+            android:orientation="horizontal">
 
 
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:tabRippleColor="@android:color/transparent" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/pager"
+                <ImageView
+                    android:id="@+id/messageImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/email" />
 
-                android:layout_width="match_parent"
-                android:layout_height="89dp"
-                android:layout_alignBottom="@+id/tab_layout"
-                android:layout_marginTop="0dp"
-                android:background="#FFCCCC" />
-        </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/calculatorImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="calculatorClick"
+                    android:src="@drawable/cal" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom|center">
+
+
+                <ImageView
+
+                    android:id="@+id/hotelImageView"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:onClick="checkoutClick"
+                    android:src="@drawable/pet_bed"
+                    android:scaleType="fitStart"
+                    android:layout_marginBottom="3dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 
 

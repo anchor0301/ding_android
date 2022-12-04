@@ -2,6 +2,8 @@ package com.example.myapplication.Calculator;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Editable;
@@ -128,11 +130,15 @@ public class Calcul_hotel extends AppCompatActivity {
 
         tp = (TimePicker) findViewById(R.id.tp); //타임피커
         messageImageView = findViewById(R.id.messageImage);
-        messageImageView.setImageResource(R.drawable.message);
+
         calculatorImageView = findViewById(R.id.calculatorImage);
-        calculatorImageView.setImageResource(R.drawable.calculator2);
+
         hotelImageView = findViewById(R.id.hotelImageView);
-        hotelImageView.setImageResource(R.drawable.hotel);
+
+        messageImageView.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+        calculatorImageView.setImageTintList(ColorStateList.valueOf(Color.parseColor("#1C1C1C")));
+        hotelImageView.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+
         currentTime = (TextView) findViewById(R.id.currentTime);
         resultOutput = (TextView) findViewById(R.id.resultOutput);
         textUseTime = (TextView) findViewById(R.id.useTime);
