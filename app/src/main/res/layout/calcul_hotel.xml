@@ -29,13 +29,6 @@
             android:src="@drawable/dingguldanggul" />
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        tools:context=".Calculator.Calcul_hotel">
-
-
         <!-- 몸통 -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,31 +43,62 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_weight="1">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/resultOutput"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/button_round"
+                    android:backgroundTint="#FDDCDC"
+                    android:fontFamily="@font/dalseo_healing_medium"
                     android:gravity="center"
                     android:text="호텔링"
                     android:textAlignment="center"
                     android:textSize="30dp" />
 
+                <TextView
+                    android:id="@+id/currentTime"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:fontFamily="@font/dalseo_healing_medium"
+                    android:text="시간"
+                    />
+            </LinearLayout>
+            <!-- 이용 시간 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/useTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/dalseo_healing_medium"
+                    android:text="입실 시간"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <TimePicker
+                    android:layout_weight="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tp"
+                    android:timePickerMode="spinner" />
+
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/currentTime"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="right"
-                android:text="시간" />
             <!-- 몸무게 -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,142 +108,87 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:fontFamily="@font/dalseo_healing_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center"
                     android:text="몸무게"
-                    android:textSize="30dp"
+                    android:gravity="center"
+                    android:layout_weight="0.2"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <NumberPicker
                     android:id="@+id/numberPicker"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp" />
-
-            </LinearLayout>
-
-
-            <!-- 입실 날짜 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-
-                    android:gravity="center"
-                    android:text="입실 날짜"
-                    android:textSize="30dp"
-                    android:onClick="showDatePicker"
-                    android:textStyle="bold" />
-
-
-
-            </LinearLayout>
-
-            <!-- 입실 시간 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/useTime"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-
-                    android:gravity="center"
-                    android:text="입실 시간"
-                    android:textSize="30dp"
-                    android:textStyle="bold" />
-
-                <TimePicker
-                    android:id="@+id/tp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:timePickerMode="spinner" />
-
-
-            </LinearLayout>
-
-
-            <!-- 픽업 드랍 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
+                    android:layout_weight="0.05"
+                    android:layout_gravity="center" />
                 <CheckBox
                     android:id="@+id/checkBox1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0.3"
                     android:text="픽업"
-                    android:textSize="30dp"
+                    android:fontFamily="@font/dalseo_healing_medium"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/EditText1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.4"
                     android:hint="0"
-                    android:inputType="number"
-                    android:maxLength="2" />
-
-                <CheckBox
-                    android:id="@+id/checkBox2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="드랍"
-                    android:textSize="30dp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/EditText2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="0"
+                    android:layout_marginRight="10dp"
                     android:inputType="number"
                     android:maxLength="2" />
             </LinearLayout>
 
-            <!-- 목욕 -->
+
+
+
+            <!-- 픽업 드랍 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:orientation="horizontal">
 
+
+
                 <CheckBox
+                    android:layout_marginLeft="20dp"
+
+                    android:id="@+id/checkBox2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.45"
+                    android:text="드랍"
+                    android:fontFamily="@font/dalseo_healing_medium"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/EditText2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:hint="0"
+                    android:maxLength="2"
+                    android:inputType="number" />
+
+                <!-- 목욕 -->
+                <CheckBox
+                    android:fontFamily="@font/dalseo_healing_medium"
                     android:id="@+id/checkBox3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="5dp"
                     android:text="목욕"
-                    android:textSize="30dp"
+                    android:layout_weight="0.05"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -227,37 +196,41 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="0.3"
                     android:hint="15000"
-                    android:inputType="number"
-                    android:maxLength="5" />
-
-
+                    android:maxLength="5"
+                    android:inputType="number" />
             </LinearLayout>
-
-
         </LinearLayout>
 
-    </ScrollView>
     <!--서비스 메뉴 선택-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/pink"
+        android:layout_height="82dp"
+
+        android:background="#FDDCDC"
         android:orientation="horizontal">
         <!-- 놀이방 -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <Button
+            <ImageView
+                android:id="@+id/parkImeage"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/park"
+                android:onClick="calculatorClick"/>
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="calculatorClick"
                 android:text="놀이방"
-                android:textSize="30dp" />
-
+                android:gravity="center"
+                android:fontFamily="@font/dalseo_healing_medium"
+                android:textSize="18dp"/>
         </LinearLayout>
 
 
@@ -265,14 +238,23 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <Button
+            <ImageView
+                android:id="@+id/hotelImage"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/pet_hotel"
+                />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="#9079687A"
                 android:text="호텔링"
-                android:textSize="30dp" />
+                android:gravity="center"
+                android:fontFamily="@font/dalseo_healing_medium"
+                android:textSize="18dp"/>
 
         </LinearLayout>
 
@@ -280,8 +262,7 @@
     <!--메뉴-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="80dp"
         android:background="#FFCCCC"
         android:orientation="horizontal">
 
@@ -289,27 +270,31 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="bottom|center">
 
             <ImageView
                 android:id="@+id/messageImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/email" />
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/email"
+                android:onClick="messageClick"
+                android:layout_marginBottom="5dp"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="bottom|center">
 
             <ImageView
                 android:id="@+id/calculatorImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:onClick="calculatorClick"
-                android:src="@drawable/cal" />
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/cal"
+                android:layout_marginBottom="5dp"/>
 
 
         </LinearLayout>
@@ -324,12 +309,11 @@
             <ImageView
 
                 android:id="@+id/hotelImageView"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:onClick="checkoutClick"
                 android:src="@drawable/pet_bed"
-                android:scaleType="fitStart"
-                android:layout_marginBottom="3dp"/>
+                android:layout_marginBottom="5dp"/>
 
         </LinearLayout>
 

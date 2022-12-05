@@ -51,7 +51,7 @@
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="수동 입력"
-                android:fontFamily="@font/human_bumsok"
+                android:fontFamily="@font/dalseo_healing_medium"
                 android:textSize="25dp" />
 
             <EditText
@@ -95,8 +95,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="80dp"
+
             android:background="#FFCCCC"
             android:orientation="horizontal">
 
@@ -104,12 +104,13 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:gravity="bottom|center">
 
                 <ImageView
                     android:id="@+id/messageImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:src="@drawable/email" />
 
             </LinearLayout>
@@ -117,12 +118,13 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:gravity="bottom|center">
 
                 <ImageView
                     android:id="@+id/calculatorImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:onClick="calculatorClick"
                     android:src="@drawable/cal" />
 
@@ -139,12 +141,12 @@
                 <ImageView
 
                     android:id="@+id/hotelImageView"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:onClick="checkoutClick"
                     android:src="@drawable/pet_bed"
                     android:scaleType="fitStart"
-                    android:layout_marginBottom="3dp"/>
+                    android:layout_marginBottom="4dp"/>
 
             </LinearLayout>
 

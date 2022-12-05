@@ -7,18 +7,26 @@
     android:orientation="vertical"
     tools:context=".ListDog.DogListActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.05"
-        android:background="@color/pink"
-        android:orientation="horizontal">
+        android:layout_height="80dp"
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <include
+
+            android:id="@id/toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/dog2" />
-    </LinearLayout>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/dingguldanggul" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,6 +41,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/dalseo_healing_medium"
+            android:textSize="25dp"
             android:text="애견 정보"/>
 
         </LinearLayout>
@@ -52,10 +62,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
+            android:fontFamily="@font/dalseo_healing_medium"
             android:text="점심"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/dalseo_healing_medium"
             android:text="저녁"/>
         </LinearLayout>
 
@@ -89,39 +101,43 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
-
+    <!--메뉴-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/pink"
+        android:layout_height="80dp"
+        android:background="#FFCCCC"
         android:orientation="horizontal">
+
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="bottom|center">
 
             <ImageView
                 android:id="@+id/messageImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/email"
                 android:onClick="messageClick"
-                android:src="@drawable/message" />
+                android:layout_marginBottom="5dp"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="bottom|center">
 
             <ImageView
                 android:id="@+id/calculatorImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/cal"
                 android:onClick="calculatorClick"
-                android:src="@drawable/calculator" />
+                android:layout_marginBottom="5dp"/>
 
 
         </LinearLayout>
@@ -129,15 +145,18 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="bottom|center">
 
 
             <ImageView
+
                 android:id="@+id/hotelImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:onClick="checkoutClick"
-                android:src="@drawable/hotel2" />
+                android:src="@drawable/pet_bed"
+                android:layout_marginBottom="5dp"/>
 
         </LinearLayout>
 

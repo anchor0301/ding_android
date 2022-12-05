@@ -32,7 +32,8 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Calcul_hotel extends AppCompatActivity {
-
+    ImageView parkImeage;
+    ImageView hotelImage;
     ImageView messageImageView;
     ImageView calculatorImageView;
     ImageView hotelImageView;
@@ -138,6 +139,12 @@ public class Calcul_hotel extends AppCompatActivity {
         messageImageView.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
         calculatorImageView.setImageTintList(ColorStateList.valueOf(Color.parseColor("#1C1C1C")));
         hotelImageView.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+
+
+        parkImeage = findViewById(R.id.parkImeage);
+        hotelImage = findViewById(R.id.hotelImage);
+        parkImeage.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+        hotelImage.setImageTintList(ColorStateList.valueOf(Color.parseColor("#1C1C1C")));
 
         currentTime = (TextView) findViewById(R.id.currentTime);
         resultOutput = (TextView) findViewById(R.id.resultOutput);

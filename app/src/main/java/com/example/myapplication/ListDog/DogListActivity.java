@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Movie;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -43,7 +45,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class DogListActivity extends FragmentActivity {
-
+    ImageView messageImageView;
+    ImageView calculatorImageView;
+    ImageView hotelImageView;
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
 
@@ -58,6 +62,14 @@ public class DogListActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doglist);
+
+        messageImageView = findViewById(R.id.messageImage);
+        calculatorImageView = findViewById(R.id.calculatorImage);
+        hotelImageView = findViewById(R.id.hotelImageView);
+        messageImageView.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+        calculatorImageView.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+        hotelImageView.setImageTintList(ColorStateList.valueOf(Color.parseColor("#1C1C1C")));
+
 
         shimmerFrameLayout = findViewById(R.id.shimmer_view_container);
         recyclerView =findViewById(R.id.recycler_view);
